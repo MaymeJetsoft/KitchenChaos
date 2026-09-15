@@ -1,0 +1,33 @@
+namespace ChickenChaos;
+
+using System;
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
+public partial record AppLogicState
+{
+  [Meta]
+  public partial record InGame : AppLogicState, IGet<Input.EndGame>
+  {
+    public InGame()
+    {
+      this.OnEnter(() =>
+      {
+        Get<IAppRepo>().OnEnteringGame();
+        Output(new Output.ShowGame());
+      });
+      this.OnExit(() => Output(new Output.HideGame()));
+    }
+
+    public void OnGameExited(PostGameAction reason) =>
+      Input(new Input.EndGame(reason));
+
+    public Type On(in Input.EndGame input)
+    {
+      var postGameAction = input.PostGameAction;
+      Get<AppLogic.Data>().PostGameAction = postGameAction;
+
+      return To<LeavingGame>();
+    }
+  }
+}

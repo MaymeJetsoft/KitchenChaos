@@ -1,0 +1,26 @@
+@startuml PlayerLogicState
+state "PlayerLogicState" as ChickenChaos_PlayerLogicState {
+  state "Alive" as ChickenChaos_PlayerLogicState_Alive {
+    state "Grounded" as ChickenChaos_PlayerLogicState_Grounded {
+      state "Idle" as ChickenChaos_PlayerLogicState_Idle
+      state "Moving" as ChickenChaos_PlayerLogicState_Moving
+    }
+  }
+  state "Dead" as ChickenChaos_PlayerLogicState_Dead
+  state "Disabled" as ChickenChaos_PlayerLogicState_Disabled
+}
+
+ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Alive : Moved
+ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Alive : PhysicsTick
+ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Alive : Pushed
+ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Dead : Killed
+ChickenChaos_PlayerLogicState_Disabled --> ChickenChaos_PlayerLogicState_Idle : Enable
+ChickenChaos_PlayerLogicState_Idle --> ChickenChaos_PlayerLogicState_Moving : StartedMovingHorizontally
+ChickenChaos_PlayerLogicState_Moving --> ChickenChaos_PlayerLogicState_Idle : StoppedMovingHorizontally
+
+ChickenChaos_PlayerLogicState_Alive : OnPhysicsTick → MovementComputed
+ChickenChaos_PlayerLogicState_Alive : OnPushed → VelocityChanged
+ChickenChaos_PlayerLogicState_Disabled : OnEnter → Idle
+ChickenChaos_PlayerLogicState_Idle : OnEnter → Idle
+ChickenChaos_PlayerLogicState_Moving : OnEnter → Move
+@enduml

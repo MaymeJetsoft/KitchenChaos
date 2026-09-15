@@ -1,0 +1,17 @@
+namespace ChickenChaos;
+
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks.Auto;
+using Chickensoft.Serialization;
+using Godot;
+
+[Meta, Id("player_data")]
+public partial record PlayerData
+{
+  [Save("global_transform")]
+  public required Transform3D GlobalTransform { get; init; }
+  [Save("state_machine")]
+  public required ILogicBlockSaveData StateMachine { get; init; }
+  [Save("velocity")]
+  public required Vector3 Velocity { get; init; }
+}

@@ -1,0 +1,3 @@
+@startuml MapLogicState
+state "MapLogicState" as ChickenChaos_MapLogicState
+@enduml

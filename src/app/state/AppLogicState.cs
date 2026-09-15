@@ -1,0 +1,7 @@
+namespace ChickenChaos;
+
+using Chickensoft.Introspection;
+using Chickensoft.LogicBlocks;
+
+[Meta, StateDiagram]
+public abstract partial record AppLogicState : LogicBlockState;

@@ -1,0 +1,9 @@
+@startuml LightSwitchState
+state "LightSwitchState" as ChickenChaos_LightSwitchState {
+  state "PoweredOff" as ChickenChaos_LightSwitchState_PoweredOff
+  state "PoweredOn" as ChickenChaos_LightSwitchState_PoweredOn
+}
+
+ChickenChaos_LightSwitchState_PoweredOff --> ChickenChaos_LightSwitchState_PoweredOn : Toggle
+ChickenChaos_LightSwitchState_PoweredOn --> ChickenChaos_LightSwitchState_PoweredOff : Toggle
+@enduml

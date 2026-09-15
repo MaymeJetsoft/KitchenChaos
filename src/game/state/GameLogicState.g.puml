@@ -1,0 +1,37 @@
+@startuml GameLogicState
+state "GameLogicState" as ChickenChaos_GameLogicState {
+  state "Lost" as ChickenChaos_GameLogicState_Lost
+  state "MenuBackdrop" as ChickenChaos_GameLogicState_MenuBackdrop
+  state "Paused" as ChickenChaos_GameLogicState_Paused {
+    state "Saving" as ChickenChaos_GameLogicState_Saving
+  }
+  state "Playing" as ChickenChaos_GameLogicState_Playing
+  state "Quit" as ChickenChaos_GameLogicState_Quit
+  state "RestartingGame" as ChickenChaos_GameLogicState_RestartingGame
+  state "Resuming" as ChickenChaos_GameLogicState_Resuming
+  state "Won" as ChickenChaos_GameLogicState_Won
+}
+
+ChickenChaos_GameLogicState_Lost --> ChickenChaos_GameLogicState_Quit : GoToMainMenu
+ChickenChaos_GameLogicState_Lost --> ChickenChaos_GameLogicState_RestartingGame : Start
+ChickenChaos_GameLogicState_MenuBackdrop --> ChickenChaos_GameLogicState_MenuBackdrop : Initialize
+ChickenChaos_GameLogicState_MenuBackdrop --> ChickenChaos_GameLogicState_Playing : Start
+ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Quit : GoToMainMenu
+ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Resuming : PauseButtonPressed
+ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Saving : SaveRequested
+ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Lost : EndGame
+ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Paused : PauseButtonPressed
+ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Quit : EndGame
+ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Won : EndGame
+ChickenChaos_GameLogicState_Resuming --> ChickenChaos_GameLogicState_Playing : PauseMenuTransitioned
+ChickenChaos_GameLogicState_Saving --> ChickenChaos_GameLogicState_Paused : SaveCompleted
+ChickenChaos_GameLogicState_Saving --> ChickenChaos_GameLogicState_Saving : PauseButtonPressed
+ChickenChaos_GameLogicState_Won --> ChickenChaos_GameLogicState_Won : GoToMainMenu
+
+ChickenChaos_GameLogicState_Paused : OnEnter → ShowPauseMenu
+ChickenChaos_GameLogicState_Paused : OnExit → ExitPauseMenu
+ChickenChaos_GameLogicState_Playing : OnEnter → StartGame
+ChickenChaos_GameLogicState_Resuming : OnExit → HidePauseMenu
+ChickenChaos_GameLogicState_Saving : OnEnter → ShowPauseSaveOverlay, StartSaving
+ChickenChaos_GameLogicState_Saving : OnExit → HidePauseSaveOverlay
+@enduml

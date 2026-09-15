@@ -1,0 +1,30 @@
+@startuml AppLogicState
+state "AppLogicState" as ChickenChaos_AppLogicState {
+  state "InGame" as ChickenChaos_AppLogicState_InGame
+  state "LeavingGame" as ChickenChaos_AppLogicState_LeavingGame
+  state "LeavingMenu" as ChickenChaos_AppLogicState_LeavingMenu
+  state "LoadingSaveFile" as ChickenChaos_AppLogicState_LoadingSaveFile
+  state "MainMenu" as ChickenChaos_AppLogicState_MainMenu
+  state "SplashScreen" as ChickenChaos_AppLogicState_SplashScreen
+}
+
+ChickenChaos_AppLogicState_InGame --> ChickenChaos_AppLogicState_LeavingGame : EndGame
+ChickenChaos_AppLogicState_LeavingGame --> ChickenChaos_AppLogicState_InGame : FadeOutFinished
+ChickenChaos_AppLogicState_LeavingGame --> ChickenChaos_AppLogicState_MainMenu : FadeOutFinished
+ChickenChaos_AppLogicState_LeavingMenu --> ChickenChaos_AppLogicState_InGame : FadeOutFinished
+ChickenChaos_AppLogicState_LoadingSaveFile --> ChickenChaos_AppLogicState_InGame : SaveFileLoaded
+ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_LeavingMenu : LoadGame
+ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_LeavingMenu : NewGame
+ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_MainMenu : DeleteGame
+ChickenChaos_AppLogicState_SplashScreen --> ChickenChaos_AppLogicState_MainMenu : FadeOutFinished
+
+ChickenChaos_AppLogicState_InGame : OnEnter → ShowGame
+ChickenChaos_AppLogicState_InGame : OnExit → HideGame
+ChickenChaos_AppLogicState_LeavingGame : OnFadeOutFinished → RemoveExistingGame, SetupGameScene
+ChickenChaos_AppLogicState_LeavingMenu : OnEnter → FadeToBlack
+ChickenChaos_AppLogicState_LoadingSaveFile : OnEnter → StartLoadingSaveFile
+ChickenChaos_AppLogicState_MainMenu : OnDeleteGame → StartDeletingSaveFile
+ChickenChaos_AppLogicState_MainMenu : OnEnter → SetupGameScene, ShowMainMenu
+ChickenChaos_AppLogicState_SplashScreen : OnEnter → ShowSplashScreen
+ChickenChaos_AppLogicState_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
+@enduml
