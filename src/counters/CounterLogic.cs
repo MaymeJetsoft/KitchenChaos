@@ -11,6 +11,7 @@ public interface ICounterLogic : ILogicBlock;
 public partial class CounterLogic : LogicBlock, ICounterLogic
 {
   private AutoValue<ICounter?>.Binding? _interactableCounterBinding;
+  private AutoValue<ICounter>.Binding? _currentCounterBinding;
 
   public CounterLogic()
   {
@@ -22,7 +23,13 @@ public partial class CounterLogic : LogicBlock, ICounterLogic
     var gameRepo = Get<IGameRepo>();
     _interactableCounterBinding = gameRepo.InteractableCounter.Bind()
       .OnValue((interactableCounter) => State?.Output(new CounterLogicState.Output.InteractableCounterChanged(interactableCounter)));
+    _currentCounterBinding = gameRepo.CurrentCounter.Bind()
+      .OnValue((currentCounter) => State?.Output(new CounterLogicState.Output.CurrentCounterChanged(currentCounter)));
   }
 
-  public override void OnStop() => _interactableCounterBinding?.Dispose();
+  public override void OnStop()
+  {
+    _interactableCounterBinding?.Dispose();
+    _currentCounterBinding?.Dispose();
+  }
 }

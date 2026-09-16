@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c0nupdviqed1"]
+
+[ext_resource type="PackedScene" uid="uid://nfnhybfs4g2k" path="res://src/kitchen_objects/tomato/visuals/Tomato.fbx" id="1_ep3nl"]
+[ext_resource type="Script" uid="uid://jdopgbswa6hx" path="res://src/kitchen_objects/tomato/Tomato.cs" id="1_mqaoo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
+radius = 0.073734224
+
+[node name="Tomato" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_mqaoo")
+
+[node name="TomatoVisual" parent="." unique_id=1062983998 instance=ExtResource("1_ep3nl")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05767495, 0)
+shape = SubResource("SphereShape3D_tg3de")

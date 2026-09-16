@@ -13,6 +13,7 @@ public interface ICounter : IStaticBody3D
   void Interact(IPlayer player);
   void ShowInteractable();
   void HideInteractable();
+  virtual void SpawnKitchenObject() => GD.PushWarning("SpawnKitchenObject is not implemented for this counter.");
 }
 
 [Meta(typeof(IAutoNode))]
@@ -58,6 +59,13 @@ public partial class Counter : StaticBody3D, ICounter
     CounterBinding = CounterLogic.Bind();
 
     CounterBinding
+      .OnOutput((in CounterLogicState.Output.CurrentCounterChanged output) =>
+      {
+        if (output.Counter == this)
+        {
+          Interact(null!);
+        }
+      })
       .OnOutput((in CounterLogicState.Output.InteractableCounterChanged output) =>
       {
         if (output.InteractableCounter == this)
@@ -80,7 +88,6 @@ public partial class Counter : StaticBody3D, ICounter
   }
 
   public bool CanInteract() => IsInteractable;
-  public void Interact(IPlayer player) => throw new System.NotImplementedException();
   public void ShowInteractable()
   {
     // Highlight the counter to indicate that it can be interacted with.
@@ -97,5 +104,19 @@ public partial class Counter : StaticBody3D, ICounter
     AnimationPlayer.Play("RESET");
 
     // Hide interaction icon
+  }
+
+  public void Interact(IPlayer player)
+  {
+    if (!CanInteract())
+    {
+      GD.Print($"Counter {Name} cannot be interacted with. (counter)");
+      return;
+    }
+
+    if (this is IClearCounter clearCounter)
+    {
+      clearCounter.SpawnKitchenObject();
+    }
   }
 }
