@@ -15,6 +15,8 @@ ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Alive : Ph
 ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Alive : Pushed
 ChickenChaos_PlayerLogicState_Alive --> ChickenChaos_PlayerLogicState_Dead : Killed
 ChickenChaos_PlayerLogicState_Disabled --> ChickenChaos_PlayerLogicState_Idle : Enable
+ChickenChaos_PlayerLogicState_Idle --> ChickenChaos_PlayerLogicState_Idle : CounterChanged
+ChickenChaos_PlayerLogicState_Idle --> ChickenChaos_PlayerLogicState_Idle : InteractPressed
 ChickenChaos_PlayerLogicState_Idle --> ChickenChaos_PlayerLogicState_Moving : StartedMovingHorizontally
 ChickenChaos_PlayerLogicState_Moving --> ChickenChaos_PlayerLogicState_Idle : StoppedMovingHorizontally
 

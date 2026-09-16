@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 using Godot;
+using KitchenChaos;
 
 public partial class PlayerLogic
 {

@@ -3,6 +3,7 @@ namespace ChickenChaos;
 using System;
 using Chickensoft.Sync.Primitives;
 using Godot;
+using KitchenChaos;
 
 public interface IGameRepo : IDisposable
 {
@@ -10,12 +11,11 @@ public interface IGameRepo : IDisposable
   /// <summary>Event invoked when the game ends.</summary>
   readonly record struct Ended(GameOverReason Reason);
 
-  // /// <summary>Event invoked when a coin is collected.</summary>
-  // readonly record struct CoinCollectionStarted(ICoin Coin);
-  // readonly record struct CoinCollectionCompleted(ICoin Coin);
-
   // /// <summary>Event invoked whenever the player jumps.</summary>
   // readonly record struct Jumped;
+
+  readonly record struct InteractableCounterChanged(ICounter? Counter);
+  readonly record struct CurrentCounterChanged(ICounter Counter);
 
   /// <summary>Mouse captured status.</summary>
   IAutoValue<bool> IsMouseCaptured { get; }
@@ -37,6 +37,12 @@ public interface IGameRepo : IDisposable
 
   /// <summary>Camera's global forward direction vector.</summary>
   Vector3 GlobalCameraDirection { get; }
+
+  /// <summary>Current counter the player is interacting with.</summary>
+  IAutoValue<ICounter?> InteractableCounter { get; }
+
+  /// <summary>Current counter the player is interacting with.</summary>
+  IAutoValue<ICounter> CurrentCounter { get; }
 
   // /// <summary>Inform the game that the player is collecting a coin.</summary>
   // /// <param name="coin">Coin that is being collected.</param>
@@ -83,6 +89,18 @@ public interface IGameRepo : IDisposable
   ///   coordinates.
   /// </param>
   void SetPlayerGlobalPosition(Vector3 playerGlobalPosition);
+
+  /// <summary>
+  ///  Sets the current counter the player is interacting with.
+  /// </summary>
+  /// <param name="counter"></param>
+  void SetInteractableCounter(ICounter? counter);
+
+  /// <summary>
+  /// Sets the current counter the player is interacting with.
+  /// </summary>
+  /// <param name="counter"></param>
+  void SetCurrentCounter(ICounter counter);
 }
 
 /// <summary>
@@ -106,11 +124,11 @@ public class GameRepo : IGameRepo
 
   public Vector3 GlobalCameraDirection => -_cameraBasis.Value.Z;
 
-  // public IAutoValue<int> NumCoinsCollected => _numCoinsCollected;
-  // private readonly AutoValue<int> _numCoinsCollected;
-  // public IAutoValue<int> NumCoinsAtStart => _numCoinsAtStart;
-  // private readonly AutoValue<int> _numCoinsAtStart;
-  // private int _coinsBeingCollected;
+  public IAutoValue<ICounter?> InteractableCounter => _interactableCounter;
+  private readonly AutoValue<ICounter?> _interactableCounter;
+
+  public IAutoValue<ICounter> CurrentCounter => _currentCounter;
+  private readonly AutoValue<ICounter> _currentCounter;
 
   private bool _disposedValue;
 
@@ -120,25 +138,25 @@ public class GameRepo : IGameRepo
     _isPaused = new AutoValue<bool>(false);
     _playerGlobalPosition = new AutoValue<Vector3>(Vector3.Zero);
     _cameraBasis = new AutoValue<Basis>(Basis.Identity);
-    // _numCoinsCollected = new AutoValue<int>(0);
-    // _numCoinsAtStart = new AutoValue<int>(0);
+    _interactableCounter = new AutoValue<ICounter?>(null);
+    _currentCounter = new AutoValue<ICounter>(default!);
   }
 
   internal GameRepo(
     AutoValue<bool> isMouseCaptured,
     AutoValue<bool> isPaused,
     AutoValue<Vector3> playerGlobalPosition,
-    AutoValue<Basis> cameraBasis
-  // AutoValue<int> numCoinsCollected,
-  // AutoValue<int> numCoinsAtStart
+    AutoValue<Basis> cameraBasis,
+    AutoValue<ICounter?> interactableCounter,
+    AutoValue<ICounter> currentCounter
   )
   {
     _isMouseCaptured = isMouseCaptured;
     _isPaused = isPaused;
     _playerGlobalPosition = playerGlobalPosition;
     _cameraBasis = cameraBasis;
-    // _numCoinsCollected = numCoinsCollected;
-    // _numCoinsAtStart = numCoinsAtStart;
+    _interactableCounter = interactableCounter;
+    _currentCounter = currentCounter;
   }
 
   public void SetPlayerGlobalPosition(Vector3 playerGlobalPosition) =>
@@ -150,28 +168,17 @@ public class GameRepo : IGameRepo
   public void SetCameraBasis(Basis cameraBasis) =>
     _cameraBasis.Value = cameraBasis;
 
-  // public void StartCoinCollection(ICoin coin)
-  // {
-  //   _coinsBeingCollected++;
-  //   _numCoinsCollected.Value = _numCoinsCollected.Value + 1;
-  //   _autoChannel.Send(new IGameRepo.CoinCollectionStarted(coin));
-  // }
+  public void SetInteractableCounter(ICounter? counter)
+  {
+    _interactableCounter.Value = counter;
+    _autoChannel.Send(new IGameRepo.InteractableCounterChanged(counter));
+  }
 
-  // public void OnFinishCoinCollection(ICoin coin)
-  // {
-  //   _coinsBeingCollected--;
-  //   _autoChannel.Send(new IGameRepo.CoinCollectionCompleted(coin));
-
-  //   if (
-  //     _coinsBeingCollected == 0 &&
-  //     _numCoinsCollected.Value >= _numCoinsAtStart.Value
-  //   )
-  //   {
-  //     OnGameEnded(GameOverReason.Won);
-  //   }
-  // }
-
-  // public void OnJump() => _autoChannel.Send(new IGameRepo.Jumped());
+  public void SetCurrentCounter(ICounter counter)
+  {
+    _currentCounter.Value = counter;
+    _autoChannel.Send(new IGameRepo.CurrentCounterChanged(counter));
+  }
 
   public void OnGameEnded(GameOverReason reason)
   {
@@ -214,6 +221,7 @@ public class GameRepo : IGameRepo
         _cameraBasis.Dispose();
         // _numCoinsCollected.Dispose();
         // _numCoinsAtStart.Dispose();
+        _interactableCounter.Dispose();
       }
 
       _disposedValue = true;

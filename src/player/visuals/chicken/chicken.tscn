@@ -5,5 +5,5 @@
 
 [node name="chickensoft_mascot" unique_id=1561459962 instance=ExtResource("1_33xro")]
 
-[node name="ChickenMesh" parent="Rig/Skeleton3D" parent_id_path=PackedInt32Array(1815017285) index="0" unique_id=392487722]
+[node name="ChickenMesh" parent="Rig/Skeleton3D" parent_id_path=PackedInt32Array(1834715628) index="0" unique_id=542591578]
 surface_material_override/0 = ExtResource("2_uelql")

@@ -7,6 +7,7 @@ using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
+using KitchenChaos;
 using Compiler = System.Runtime.CompilerServices;
 
 public interface IPlayer : ICharacterBody3D
@@ -48,6 +49,13 @@ IProvide<IPlayerLogic>,
 IProvide<PlayerLogic.Settings>
 {
   public override void _Notification(int what) => this.Notify(what);
+
+  #region Nodes
+
+  [Node]
+  public IRayCast3D CounterRayCast3D { get; set; } = default!;
+
+  #endregion Nodes
 
   #region Save
 
@@ -170,7 +178,14 @@ IProvide<PlayerLogic.Settings>
     PlayerBinding = PlayerLogic.Bind()
       .OnOutput(
         (in PlayerLogicState.Output.MovementComputed output) =>
-          Velocity = output.Velocity
+        {
+          Velocity = output.Velocity;
+          // Use output.Direction to rotate the CounterRayCast3D to face the direction the player is moving.
+          CounterRayCast3D.Rotation = CounterRayCast3D.Rotation with
+          {
+            Y = Mathf.Atan2(output.Direction.X, output.Direction.Y) + Mathf.Pi
+          };
+        }
       )
       .OnOutput(
         (in PlayerLogicState.Output.VelocityChanged output) =>
@@ -187,6 +202,25 @@ IProvide<PlayerLogic.Settings>
   public void OnPhysicsProcess(double delta)
   {
     PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
+
+    // Raycast to check if the player is standing in front of a counter
+    if (CounterRayCast3D.IsColliding())
+    {
+      var collider = CounterRayCast3D.GetCollider();
+      if (collider is ICounter counter)
+      {
+        PlayerLogic.Input(new PlayerLogicState.Input.CounterChanged(counter));
+
+        if (counter.CanInteract() && Input.IsActionJustPressed(GameInputs.Interact))
+        {
+          PlayerLogic.Input(new PlayerLogicState.Input.InteractPressed(counter));
+        }
+      }
+    }
+    else
+    {
+      PlayerLogic.Input(new PlayerLogicState.Input.CounterChanged(null));
+    }
 
     // var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
     // var jumpJustPressed = Input.IsActionJustPressed(GameInputs.Jump);

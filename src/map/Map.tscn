@@ -10,7 +10,8 @@
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="8_1de7e"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="9_5suoo"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="10_t2vkt"]
-[ext_resource type="Texture2D" uid="uid://b2a7voae6o004" path="res://src/map/floor/Tiles002_4K_Color.jpg" id="11_abpbr"]
+[ext_resource type="PackedScene" uid="uid://bd0e1bjbg3geh" path="res://src/map/Terrain.tscn" id="11_abpbr"]
+[ext_resource type="PackedScene" uid="uid://ci78q7ikl26fh" path="res://src/counters/clear_counter/ClearCounter.tscn" id="12_caf7v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hi63v"]
 shader = ExtResource("1_ne2vg")
@@ -65,8 +66,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.01853716, 0.01853716)
-shader_parameter/cirrus_position2 = Vector2(0.01853716, 0.01853716)
+shader_parameter/cirrus_position1 = Vector2(0.00025927252, 0.00025927252)
+shader_parameter/cirrus_position2 = Vector2(0.00025927252, 0.00025927252)
 shader_parameter/cirrus_texture = ExtResource("2_abpbr")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -76,7 +77,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(5.093595, 5.093595)
+shader_parameter/cumulus_position = Vector2(0.0012963626, 0.0012963626)
 shader_parameter/cumulus_texture = ExtResource("3_caf7v")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -101,11 +102,6 @@ tonemap_mode = 3
 tonemap_white = 6.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_q7oan"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caf7v"]
-albedo_texture = ExtResource("11_abpbr")
-metallic_specular = 0.0
-uv1_scale = Vector3(10, 10, 10)
 
 [node name="GameMap" type="Node3D" unique_id=1546417699]
 
@@ -145,13 +141,16 @@ current_time = 14.0
 
 [node name="World" type="Node3D" parent="." unique_id=836353696]
 
-[node name="Terrain" type="Node3D" parent="World" unique_id=1063971061]
+[node name="Terrain" parent="World" unique_id=293500159 instance=ExtResource("11_abpbr")]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World/Terrain" unique_id=1096156435]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-collision_layer = 15
-size = Vector3(20, 1, 20)
-material = SubResource("StandardMaterial3D_caf7v")
+[node name="Decoration" type="Node3D" parent="World" unique_id=509418606]
 
-[node name="Foliage" type="Node3D" parent="World" unique_id=509418606]
+[node name="Counters" type="Node3D" parent="World" unique_id=1682940617]
+
+[node name="ClearCounter" parent="World/Counters" unique_id=1182774818 instance=ExtResource("12_caf7v")]
+
+[node name="ClearCounter2" parent="World/Counters" unique_id=532112847 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="ClearCounter3" parent="World/Counters" unique_id=1844286322 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)

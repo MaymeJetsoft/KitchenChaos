@@ -1,6 +1,5 @@
 namespace ChickenChaos;
 
-using System.Linq;
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
 using Chickensoft.GodotNodeInterfaces;

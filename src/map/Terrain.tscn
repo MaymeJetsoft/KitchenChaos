@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bd0e1bjbg3geh"]
+
+[ext_resource type="Texture2D" uid="uid://b2a7voae6o004" path="res://src/map/floor/Tiles002_4K_Color.jpg" id="1_j4dv4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caf7v"]
+albedo_texture = ExtResource("1_j4dv4")
+metallic_specular = 0.0
+uv1_scale = Vector3(10, 10, 10)
+
+[node name="Terrain" type="Node3D" unique_id=293500159]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1080156099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+collision_layer = 15
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_caf7v")

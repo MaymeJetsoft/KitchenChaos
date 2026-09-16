@@ -1,0 +1,3 @@
+@startuml CounterLogicState
+state "CounterLogicState" as ChickenChaos_CounterLogicState
+@enduml

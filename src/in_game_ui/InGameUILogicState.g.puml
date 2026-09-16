@@ -1,0 +1,3 @@
+@startuml InGameUILogicState
+state "InGameUILogicState" as ChickenChaos_InGameUILogicState
+@enduml
