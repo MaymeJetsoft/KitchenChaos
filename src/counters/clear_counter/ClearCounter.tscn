@@ -61,7 +61,7 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_i7l4a")
 
-[node name="Marker3D" type="Marker3D" parent="." unique_id=1439491032]
+[node name="CarryingPosition" type="Marker3D" parent="." unique_id=1439491032]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84985036, 0)
 metadata/_edit_lock_ = true

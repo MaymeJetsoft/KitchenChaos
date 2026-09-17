@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Chickensoft.AutoInject;
 using Chickensoft.Collections;
@@ -7,10 +7,9 @@ using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.SaveFileBuilder;
 using Godot;
-using KitchenChaos;
 using Compiler = System.Runtime.CompilerServices;
 
-public interface IPlayer : ICharacterBody3D
+public interface IPlayer : ICharacterBody3D, IBearable
   , ISaveable<PlayerData>
 // , IKillable
 // , ICoinCollector
@@ -53,9 +52,36 @@ IProvide<PlayerLogic.Settings>
   #region Nodes
 
   [Node]
+  public INode3D FollowVisualRotation { get; set; } = default!;
+
+  [Node]
   public IRayCast3D CounterRayCast3D { get; set; } = default!;
 
   #endregion Nodes
+
+  #region Bearable
+
+  private readonly Bearable _bearable = new();
+
+  [Node]
+  public IMarker3D CarryingPosition
+  {
+    get => _bearable.CarryingPosition;
+    set => _bearable.CarryingPosition = value;
+  }
+
+  public void Carry(KitchenObject carryingObject)
+  {
+    _bearable.Carry(carryingObject);
+    PlayerLogic.Input(new PlayerLogicState.Input.PickUpCompleted());
+    PlayerLogic.Input(new PlayerLogicState.Input.InteractionCompleted());
+  }
+
+  public void Drop() => _bearable.Drop();
+  public bool HasKitchenObject() => _bearable.HasKitchenObject();
+  public KitchenObject? GetKitchenObject() => _bearable.GetKitchenObject();
+
+  #endregion Bearable
 
   #region Save
 
@@ -141,6 +167,8 @@ IProvide<PlayerLogic.Settings>
 
   public void Setup()
   {
+    AddChild(_bearable);
+
     Settings = new PlayerLogic.Settings(
       RotationSpeed,
       StoppingSpeed,
@@ -180,8 +208,8 @@ IProvide<PlayerLogic.Settings>
         (in PlayerLogicState.Output.MovementComputed output) =>
         {
           Velocity = output.Velocity;
-          // Use output.Direction to rotate the CounterRayCast3D to face the direction the player is moving.
-          CounterRayCast3D.Rotation = CounterRayCast3D.Rotation with
+          // Use output.Direction to rotate the FollowVisualRotation to face the direction the player is moving.
+          FollowVisualRotation.Rotation = FollowVisualRotation.Rotation with
           {
             Y = Mathf.Atan2(output.Direction.X, output.Direction.Y) + Mathf.Pi
           };
@@ -190,6 +218,10 @@ IProvide<PlayerLogic.Settings>
       .OnOutput(
         (in PlayerLogicState.Output.VelocityChanged output) =>
           Velocity = output.Velocity
+      )
+      .OnOutput(
+        (in PlayerLogicState.Output.KitchenObjectChanged output) =>
+          Carry(output.KitchenObject)
       );
 
     // Allow the player model to lookup our state machine and bind to it.
@@ -209,17 +241,17 @@ IProvide<PlayerLogic.Settings>
       var collider = CounterRayCast3D.GetCollider();
       if (collider is ICounter counter)
       {
-        PlayerLogic.Input(new PlayerLogicState.Input.CounterChanged(counter));
+        PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(counter));
 
         if (counter.CanInteract() && Input.IsActionJustPressed(GameInputs.Interact))
         {
-          PlayerLogic.Input(new PlayerLogicState.Input.InteractPressed(counter));
+          PlayerLogic.Input(new PlayerLogicState.Input.InteractionStarted(counter));
         }
       }
     }
     else
     {
-      PlayerLogic.Input(new PlayerLogicState.Input.CounterChanged(null));
+      PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(null));
     }
 
     // var jumpPressed = Input.IsActionPressed(GameInputs.Jump);

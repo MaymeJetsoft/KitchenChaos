@@ -1,9 +1,7 @@
 namespace KitchenChaos;
 
 using Chickensoft.AutoInject;
-using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
-using Godot;
 
 public interface ITomato : IKitchenObject
 {

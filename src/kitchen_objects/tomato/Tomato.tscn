@@ -4,13 +4,14 @@
 [ext_resource type="Script" uid="uid://jdopgbswa6hx" path="res://src/kitchen_objects/tomato/Tomato.cs" id="1_mqaoo"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
-radius = 0.073734224
+radius = 0.14438242
 
 [node name="Tomato" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_mqaoo")
 
 [node name="TomatoVisual" parent="." unique_id=1062983998 instance=ExtResource("1_ep3nl")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05767495, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1165789, 0)
 shape = SubResource("SphereShape3D_tg3de")

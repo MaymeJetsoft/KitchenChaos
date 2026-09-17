@@ -23,9 +23,16 @@ script = ExtResource("3_3ojaj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774083, 0)
 shape = SubResource("CapsuleShape3D_c2exj")
 
-[node name="CounterRayCast3D" type="RayCast3D" parent="." unique_id=1951478955]
+[node name="FollowVisualRotation" type="Node3D" parent="." unique_id=17471423]
+unique_name_in_owner = true
+
+[node name="CounterRayCast3D" type="RayCast3D" parent="FollowVisualRotation" unique_id=1951478955]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 target_position = Vector3(0, 0, 0.75)
 collision_mask = 16
 debug_shape_custom_color = Color(18.892157, 0, 0, 1)
+
+[node name="CarryingPosition" type="Marker3D" parent="FollowVisualRotation" unique_id=373299826]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.75)

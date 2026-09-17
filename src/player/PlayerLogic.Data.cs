@@ -1,10 +1,9 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using System.Runtime.CompilerServices;
 using Chickensoft.Introspection;
 using Chickensoft.Serialization;
 using Godot;
-using KitchenChaos;
 
 public partial class PlayerLogic
 {
@@ -18,6 +17,10 @@ public partial class PlayerLogic
     public Vector3 LastVelocity { get; set; } = Vector3.Zero;
     [Save("was_on_floor")]
     public bool WasOnFloor { get; set; } = true;
+    [Save("current_counter")]
+    public ICounter? CurrentCounter { get; set; } = null;
+    [Save("pickup_kitchen_object")]
+    public KitchenObject? PickupKitchenObject { get; set; } = null;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool HadNegativeYVelocity() => LastVelocity.Y < 0f;

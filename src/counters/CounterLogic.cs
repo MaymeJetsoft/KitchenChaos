@@ -1,6 +1,5 @@
 namespace KitchenChaos;
 
-using ChickenChaos;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
@@ -10,8 +9,7 @@ public interface ICounterLogic : ILogicBlock;
 [Meta]
 public partial class CounterLogic : LogicBlock, ICounterLogic
 {
-  private AutoValue<ICounter?>.Binding? _interactableCounterBinding;
-  private AutoValue<ICounter>.Binding? _currentCounterBinding;
+  private AutoValue<ICounter?>.Binding? _facingCounterBinding;
 
   public CounterLogic()
   {
@@ -21,15 +19,9 @@ public partial class CounterLogic : LogicBlock, ICounterLogic
   public override void OnStart()
   {
     var gameRepo = Get<IGameRepo>();
-    _interactableCounterBinding = gameRepo.InteractableCounter.Bind()
-      .OnValue((interactableCounter) => State?.Output(new CounterLogicState.Output.InteractableCounterChanged(interactableCounter)));
-    _currentCounterBinding = gameRepo.CurrentCounter.Bind()
-      .OnValue((currentCounter) => State?.Output(new CounterLogicState.Output.CurrentCounterChanged(currentCounter)));
+    _facingCounterBinding = gameRepo.FacingCounter.Bind()
+      .OnValue((counter) => State?.Output(new CounterLogicState.Output.FacingCounterChanged(counter)));
   }
 
-  public override void OnStop()
-  {
-    _interactableCounterBinding?.Dispose();
-    _currentCounterBinding?.Dispose();
-  }
+  public override void OnStop() => _facingCounterBinding?.Dispose();
 }

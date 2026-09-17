@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Godot;
 
@@ -11,8 +11,6 @@ public abstract partial record PlayerLogicState
       public readonly record struct Idle;
       public readonly record struct Move;
       public readonly record struct Fall;
-
-      // public readonly record struct Jump;
     }
     public readonly record struct MoveSpeedChanged(float Speed);
     public readonly record struct MovementComputed(
@@ -21,5 +19,6 @@ public abstract partial record PlayerLogicState
     /// <summary>Output when the player has just come to a stop.</summary>
     public readonly record struct Stopped;
     public readonly record struct VelocityChanged(Vector3 Velocity);
+    public readonly record struct KitchenObjectChanged(KitchenObject KitchenObject);
   }
 }

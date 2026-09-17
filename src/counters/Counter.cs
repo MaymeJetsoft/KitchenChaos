@@ -1,13 +1,12 @@
 namespace KitchenChaos;
 
-using ChickenChaos;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Godot;
 
-public interface ICounter : IStaticBody3D
+public interface ICounter : IStaticBody3D, IBearable
 {
   bool CanInteract();
   void Interact(IPlayer player);
@@ -41,6 +40,24 @@ public partial class Counter : StaticBody3D, ICounter
 
   #endregion Nodes
 
+  #region Bearable
+
+  private readonly Bearable _bearable = new();
+
+  [Node]
+  public IMarker3D CarryingPosition
+  {
+    get => _bearable.CarryingPosition;
+    set => _bearable.CarryingPosition = value;
+  }
+
+  public void Carry(KitchenObject carryingObject) => _bearable.Carry(carryingObject);
+  public void Drop() => _bearable.Drop();
+  public bool HasKitchenObject() => _bearable.HasKitchenObject();
+  public KitchenObject? GetKitchenObject() => _bearable.GetKitchenObject();
+
+  #endregion Bearable
+
   #region State
 
   public ICounterLogic CounterLogic { get; set; } = default!;
@@ -49,7 +66,11 @@ public partial class Counter : StaticBody3D, ICounter
 
   #endregion State
 
-  public void Setup() => CounterLogic = new CounterLogic();
+  public void Setup()
+  {
+    AddChild(_bearable);
+    CounterLogic = new CounterLogic();
+  }
 
   public void OnResolved()
   {
@@ -59,16 +80,16 @@ public partial class Counter : StaticBody3D, ICounter
     CounterBinding = CounterLogic.Bind();
 
     CounterBinding
-      .OnOutput((in CounterLogicState.Output.CurrentCounterChanged output) =>
+      .OnOutput((in CounterLogicState.Output.CounterInteracted output) =>
       {
         if (output.Counter == this)
         {
           Interact(null!);
         }
       })
-      .OnOutput((in CounterLogicState.Output.InteractableCounterChanged output) =>
+      .OnOutput((in CounterLogicState.Output.FacingCounterChanged output) =>
       {
-        if (output.InteractableCounter == this)
+        if (output.Counter == this)
         {
           ShowInteractable();
         }
