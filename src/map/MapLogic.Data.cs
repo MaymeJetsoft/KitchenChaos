@@ -1,6 +1,5 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
-using System.Collections.Generic;
 using Chickensoft.Introspection;
 
 public partial class MapLogic

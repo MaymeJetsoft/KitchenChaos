@@ -1,8 +1,6 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
-using System.Collections.Generic;
 using Chickensoft.Introspection;
-using Chickensoft.Serialization;
 
 [Meta, Id("map_data")]
 public partial record MapData

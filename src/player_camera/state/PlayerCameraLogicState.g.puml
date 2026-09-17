@@ -1,16 +1,16 @@
 @startuml PlayerCameraLogicState
-state "PlayerCameraLogicState" as ChickenChaos_PlayerCameraLogicState {
-  state "InputDisabled" as ChickenChaos_PlayerCameraLogicState_InputDisabled
-  state "InputEnabled" as ChickenChaos_PlayerCameraLogicState_InputEnabled
+state "PlayerCameraLogicState" as KitchenChaos_PlayerCameraLogicState {
+  state "InputDisabled" as KitchenChaos_PlayerCameraLogicState_InputDisabled
+  state "InputEnabled" as KitchenChaos_PlayerCameraLogicState_InputEnabled
 }
 
-ChickenChaos_PlayerCameraLogicState --> ChickenChaos_PlayerCameraLogicState : PhysicsTicked
-ChickenChaos_PlayerCameraLogicState --> ChickenChaos_PlayerCameraLogicState : TargetOffsetChanged
-ChickenChaos_PlayerCameraLogicState --> ChickenChaos_PlayerCameraLogicState : TargetPositionChanged
-ChickenChaos_PlayerCameraLogicState_InputDisabled --> ChickenChaos_PlayerCameraLogicState_InputEnabled : EnableInput
-ChickenChaos_PlayerCameraLogicState_InputEnabled --> ChickenChaos_PlayerCameraLogicState_InputDisabled : DisableInput
-ChickenChaos_PlayerCameraLogicState_InputEnabled --> ChickenChaos_PlayerCameraLogicState_InputEnabled : JoyPadInputOccurred
-ChickenChaos_PlayerCameraLogicState_InputEnabled --> ChickenChaos_PlayerCameraLogicState_InputEnabled : MouseInputOccurred
+KitchenChaos_PlayerCameraLogicState --> KitchenChaos_PlayerCameraLogicState : PhysicsTicked
+KitchenChaos_PlayerCameraLogicState --> KitchenChaos_PlayerCameraLogicState : TargetOffsetChanged
+KitchenChaos_PlayerCameraLogicState --> KitchenChaos_PlayerCameraLogicState : TargetPositionChanged
+KitchenChaos_PlayerCameraLogicState_InputDisabled --> KitchenChaos_PlayerCameraLogicState_InputEnabled : EnableInput
+KitchenChaos_PlayerCameraLogicState_InputEnabled --> KitchenChaos_PlayerCameraLogicState_InputDisabled : DisableInput
+KitchenChaos_PlayerCameraLogicState_InputEnabled --> KitchenChaos_PlayerCameraLogicState_InputEnabled : JoyPadInputOccurred
+KitchenChaos_PlayerCameraLogicState_InputEnabled --> KitchenChaos_PlayerCameraLogicState_InputEnabled : MouseInputOccurred
 
-ChickenChaos_PlayerCameraLogicState : OnPhysicsTicked → CameraLocalPositionChanged, CameraOffsetChanged, GimbalRotationChanged, GlobalTransformChanged
+KitchenChaos_PlayerCameraLogicState : OnPhysicsTicked → CameraLocalPositionChanged, CameraOffsetChanged, GimbalRotationChanged, GlobalTransformChanged
 @enduml

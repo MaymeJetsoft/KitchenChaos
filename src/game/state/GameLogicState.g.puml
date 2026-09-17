@@ -1,37 +1,37 @@
 @startuml GameLogicState
-state "GameLogicState" as ChickenChaos_GameLogicState {
-  state "Lost" as ChickenChaos_GameLogicState_Lost
-  state "MenuBackdrop" as ChickenChaos_GameLogicState_MenuBackdrop
-  state "Paused" as ChickenChaos_GameLogicState_Paused {
-    state "Saving" as ChickenChaos_GameLogicState_Saving
+state "GameLogicState" as KitchenChaos_GameLogicState {
+  state "Lost" as KitchenChaos_GameLogicState_Lost
+  state "MenuBackdrop" as KitchenChaos_GameLogicState_MenuBackdrop
+  state "Paused" as KitchenChaos_GameLogicState_Paused {
+    state "Saving" as KitchenChaos_GameLogicState_Saving
   }
-  state "Playing" as ChickenChaos_GameLogicState_Playing
-  state "Quit" as ChickenChaos_GameLogicState_Quit
-  state "RestartingGame" as ChickenChaos_GameLogicState_RestartingGame
-  state "Resuming" as ChickenChaos_GameLogicState_Resuming
-  state "Won" as ChickenChaos_GameLogicState_Won
+  state "Playing" as KitchenChaos_GameLogicState_Playing
+  state "Quit" as KitchenChaos_GameLogicState_Quit
+  state "RestartingGame" as KitchenChaos_GameLogicState_RestartingGame
+  state "Resuming" as KitchenChaos_GameLogicState_Resuming
+  state "Won" as KitchenChaos_GameLogicState_Won
 }
 
-ChickenChaos_GameLogicState_Lost --> ChickenChaos_GameLogicState_Quit : GoToMainMenu
-ChickenChaos_GameLogicState_Lost --> ChickenChaos_GameLogicState_RestartingGame : Start
-ChickenChaos_GameLogicState_MenuBackdrop --> ChickenChaos_GameLogicState_MenuBackdrop : Initialize
-ChickenChaos_GameLogicState_MenuBackdrop --> ChickenChaos_GameLogicState_Playing : Start
-ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Quit : GoToMainMenu
-ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Resuming : PauseButtonPressed
-ChickenChaos_GameLogicState_Paused --> ChickenChaos_GameLogicState_Saving : SaveRequested
-ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Lost : EndGame
-ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Paused : PauseButtonPressed
-ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Quit : EndGame
-ChickenChaos_GameLogicState_Playing --> ChickenChaos_GameLogicState_Won : EndGame
-ChickenChaos_GameLogicState_Resuming --> ChickenChaos_GameLogicState_Playing : PauseMenuTransitioned
-ChickenChaos_GameLogicState_Saving --> ChickenChaos_GameLogicState_Paused : SaveCompleted
-ChickenChaos_GameLogicState_Saving --> ChickenChaos_GameLogicState_Saving : PauseButtonPressed
-ChickenChaos_GameLogicState_Won --> ChickenChaos_GameLogicState_Won : GoToMainMenu
+KitchenChaos_GameLogicState_Lost --> KitchenChaos_GameLogicState_Quit : GoToMainMenu
+KitchenChaos_GameLogicState_Lost --> KitchenChaos_GameLogicState_RestartingGame : Start
+KitchenChaos_GameLogicState_MenuBackdrop --> KitchenChaos_GameLogicState_MenuBackdrop : Initialize
+KitchenChaos_GameLogicState_MenuBackdrop --> KitchenChaos_GameLogicState_Playing : Start
+KitchenChaos_GameLogicState_Paused --> KitchenChaos_GameLogicState_Quit : GoToMainMenu
+KitchenChaos_GameLogicState_Paused --> KitchenChaos_GameLogicState_Resuming : PauseButtonPressed
+KitchenChaos_GameLogicState_Paused --> KitchenChaos_GameLogicState_Saving : SaveRequested
+KitchenChaos_GameLogicState_Playing --> KitchenChaos_GameLogicState_Lost : EndGame
+KitchenChaos_GameLogicState_Playing --> KitchenChaos_GameLogicState_Paused : PauseButtonPressed
+KitchenChaos_GameLogicState_Playing --> KitchenChaos_GameLogicState_Quit : EndGame
+KitchenChaos_GameLogicState_Playing --> KitchenChaos_GameLogicState_Won : EndGame
+KitchenChaos_GameLogicState_Resuming --> KitchenChaos_GameLogicState_Playing : PauseMenuTransitioned
+KitchenChaos_GameLogicState_Saving --> KitchenChaos_GameLogicState_Paused : SaveCompleted
+KitchenChaos_GameLogicState_Saving --> KitchenChaos_GameLogicState_Saving : PauseButtonPressed
+KitchenChaos_GameLogicState_Won --> KitchenChaos_GameLogicState_Won : GoToMainMenu
 
-ChickenChaos_GameLogicState_Paused : OnEnter → ShowPauseMenu
-ChickenChaos_GameLogicState_Paused : OnExit → ExitPauseMenu
-ChickenChaos_GameLogicState_Playing : OnEnter → StartGame
-ChickenChaos_GameLogicState_Resuming : OnExit → HidePauseMenu
-ChickenChaos_GameLogicState_Saving : OnEnter → ShowPauseSaveOverlay, StartSaving
-ChickenChaos_GameLogicState_Saving : OnExit → HidePauseSaveOverlay
+KitchenChaos_GameLogicState_Paused : OnEnter → ShowPauseMenu
+KitchenChaos_GameLogicState_Paused : OnExit → ExitPauseMenu
+KitchenChaos_GameLogicState_Playing : OnEnter → StartGame
+KitchenChaos_GameLogicState_Resuming : OnExit → HidePauseMenu
+KitchenChaos_GameLogicState_Saving : OnEnter → ShowPauseSaveOverlay, StartSaving
+KitchenChaos_GameLogicState_Saving : OnExit → HidePauseSaveOverlay
 @enduml

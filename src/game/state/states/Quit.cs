@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;

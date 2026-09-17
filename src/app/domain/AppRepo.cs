@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using System;
 using Chickensoft.Sync.Primitives;

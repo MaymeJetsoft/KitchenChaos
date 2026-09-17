@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Godot;
 using Chickensoft.GameTools.Displays;

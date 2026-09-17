@@ -1,9 +1,8 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.Sync.Primitives;
-using KitchenChaos;
 
 public interface IInGameUILogic : ILogicBlock;
 
@@ -13,8 +12,7 @@ public interface IInGameUILogic : ILogicBlock;
 [Meta]
 public partial class InGameUILogic : LogicBlock, IInGameUILogic
 {
-  private AutoValue<ICounter?>.Binding? _interactableCounterBinding;
-  private AutoValue<ICounter>.Binding? _currentCounterInteractionBinding;
+  private AutoValue<ICounter?>.Binding? _facingCounterBinding;
 
   public InGameUILogic()
   {
@@ -24,15 +22,9 @@ public partial class InGameUILogic : LogicBlock, IInGameUILogic
   public override void OnStart()
   {
     var gameRepo = Get<IGameRepo>();
-    _interactableCounterBinding = gameRepo.InteractableCounter.Bind()
-      .OnValue((interactableCounter) => State?.Output(new InGameUILogicState.Output.InteractableCounterChanged(interactableCounter)));
-    _currentCounterInteractionBinding = gameRepo.CurrentCounter.Bind()
-      .OnValue((currentCounter) => State?.Output(new InGameUILogicState.Output.CurrentCounterChanged(currentCounter)));
+    _facingCounterBinding = gameRepo.FacingCounter.Bind()
+      .OnValue((counter) => State?.Output(new InGameUILogicState.Output.FacingCounterChanged(counter)));
   }
 
-  public override void OnStop()
-  {
-    _interactableCounterBinding?.Dispose();
-    _currentCounterInteractionBinding?.Dispose();
-  }
+  public override void OnStop() => _facingCounterBinding?.Dispose();
 }

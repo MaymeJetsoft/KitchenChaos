@@ -1,4 +1,4 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
@@ -48,12 +48,9 @@ public partial class InGameUI : Control, IInGameUI
     InGameUIBinding = InGameUILogic.Bind();
 
     InGameUIBinding
-      .OnOutput((in InGameUILogicState.Output.CurrentCounterChanged output) =>
-        GD.Print($"CurrentCounterChanged: {output.Counter}")
-      )
-      .OnOutput((in InGameUILogicState.Output.InteractableCounterChanged output) =>
+      .OnOutput((in InGameUILogicState.Output.FacingCounterChanged output) =>
         SetActionLabel(
-          output.InteractableCounter != null ? "Interact" : string.Empty
+          output.Counter != null ? "Interact" : string.Empty
         )
       );
 

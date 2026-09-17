@@ -1,7 +1,5 @@
-namespace ChickenChaos;
+namespace KitchenChaos;
 
-using System;
-using System.Collections.Generic;
 using Chickensoft.Introspection;
 using Chickensoft.LogicBlocks;
 using Chickensoft.LogicBlocks.Auto;

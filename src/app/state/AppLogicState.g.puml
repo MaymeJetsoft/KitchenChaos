@@ -1,30 +1,30 @@
 @startuml AppLogicState
-state "AppLogicState" as ChickenChaos_AppLogicState {
-  state "InGame" as ChickenChaos_AppLogicState_InGame
-  state "LeavingGame" as ChickenChaos_AppLogicState_LeavingGame
-  state "LeavingMenu" as ChickenChaos_AppLogicState_LeavingMenu
-  state "LoadingSaveFile" as ChickenChaos_AppLogicState_LoadingSaveFile
-  state "MainMenu" as ChickenChaos_AppLogicState_MainMenu
-  state "SplashScreen" as ChickenChaos_AppLogicState_SplashScreen
+state "AppLogicState" as KitchenChaos_AppLogicState {
+  state "InGame" as KitchenChaos_AppLogicState_InGame
+  state "LeavingGame" as KitchenChaos_AppLogicState_LeavingGame
+  state "LeavingMenu" as KitchenChaos_AppLogicState_LeavingMenu
+  state "LoadingSaveFile" as KitchenChaos_AppLogicState_LoadingSaveFile
+  state "MainMenu" as KitchenChaos_AppLogicState_MainMenu
+  state "SplashScreen" as KitchenChaos_AppLogicState_SplashScreen
 }
 
-ChickenChaos_AppLogicState_InGame --> ChickenChaos_AppLogicState_LeavingGame : EndGame
-ChickenChaos_AppLogicState_LeavingGame --> ChickenChaos_AppLogicState_InGame : FadeOutFinished
-ChickenChaos_AppLogicState_LeavingGame --> ChickenChaos_AppLogicState_MainMenu : FadeOutFinished
-ChickenChaos_AppLogicState_LeavingMenu --> ChickenChaos_AppLogicState_InGame : FadeOutFinished
-ChickenChaos_AppLogicState_LoadingSaveFile --> ChickenChaos_AppLogicState_InGame : SaveFileLoaded
-ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_LeavingMenu : LoadGame
-ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_LeavingMenu : NewGame
-ChickenChaos_AppLogicState_MainMenu --> ChickenChaos_AppLogicState_MainMenu : DeleteGame
-ChickenChaos_AppLogicState_SplashScreen --> ChickenChaos_AppLogicState_MainMenu : FadeOutFinished
+KitchenChaos_AppLogicState_InGame --> KitchenChaos_AppLogicState_LeavingGame : EndGame
+KitchenChaos_AppLogicState_LeavingGame --> KitchenChaos_AppLogicState_InGame : FadeOutFinished
+KitchenChaos_AppLogicState_LeavingGame --> KitchenChaos_AppLogicState_MainMenu : FadeOutFinished
+KitchenChaos_AppLogicState_LeavingMenu --> KitchenChaos_AppLogicState_InGame : FadeOutFinished
+KitchenChaos_AppLogicState_LoadingSaveFile --> KitchenChaos_AppLogicState_InGame : SaveFileLoaded
+KitchenChaos_AppLogicState_MainMenu --> KitchenChaos_AppLogicState_LeavingMenu : LoadGame
+KitchenChaos_AppLogicState_MainMenu --> KitchenChaos_AppLogicState_LeavingMenu : NewGame
+KitchenChaos_AppLogicState_MainMenu --> KitchenChaos_AppLogicState_MainMenu : DeleteGame
+KitchenChaos_AppLogicState_SplashScreen --> KitchenChaos_AppLogicState_MainMenu : FadeOutFinished
 
-ChickenChaos_AppLogicState_InGame : OnEnter → ShowGame
-ChickenChaos_AppLogicState_InGame : OnExit → HideGame
-ChickenChaos_AppLogicState_LeavingGame : OnFadeOutFinished → RemoveExistingGame, SetupGameScene
-ChickenChaos_AppLogicState_LeavingMenu : OnEnter → FadeToBlack
-ChickenChaos_AppLogicState_LoadingSaveFile : OnEnter → StartLoadingSaveFile
-ChickenChaos_AppLogicState_MainMenu : OnDeleteGame → StartDeletingSaveFile
-ChickenChaos_AppLogicState_MainMenu : OnEnter → SetupGameScene, ShowMainMenu
-ChickenChaos_AppLogicState_SplashScreen : OnEnter → ShowSplashScreen
-ChickenChaos_AppLogicState_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
+KitchenChaos_AppLogicState_InGame : OnEnter → ShowGame
+KitchenChaos_AppLogicState_InGame : OnExit → HideGame
+KitchenChaos_AppLogicState_LeavingGame : OnFadeOutFinished → RemoveExistingGame, SetupGameScene
+KitchenChaos_AppLogicState_LeavingMenu : OnEnter → FadeToBlack
+KitchenChaos_AppLogicState_LoadingSaveFile : OnEnter → StartLoadingSaveFile
+KitchenChaos_AppLogicState_MainMenu : OnDeleteGame → StartDeletingSaveFile
+KitchenChaos_AppLogicState_MainMenu : OnEnter → SetupGameScene, ShowMainMenu
+KitchenChaos_AppLogicState_SplashScreen : OnEnter → ShowSplashScreen
+KitchenChaos_AppLogicState_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
 @enduml
