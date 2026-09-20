@@ -48,15 +48,21 @@ public sealed partial class Bearable : Node3D, IBearable
   {
     var carryingObject = CarryingObject;
     CarryingObject = null;
-    carryingObject?.Carrier = null;
+    if (carryingObject != null)
+    {
+      carryingObject.Carrier = null;
+    }
     return carryingObject;
   }
 
   public void Drop()
   {
-    CarryingObject?.Carrier = null;
-    CarryingObject?.QueueFree();
-    CarryingObject = null;
+    if (CarryingObject != null)
+    {
+      CarryingObject.Carrier = null;
+      CarryingObject.QueueFree();
+      CarryingObject = null;
+    }
   }
 
   public bool HasKitchenObject() => CarryingObject != null;

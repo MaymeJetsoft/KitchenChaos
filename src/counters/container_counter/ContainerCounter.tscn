@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://la6vadrngkmm"]
+
+[ext_resource type="Script" uid="uid://c4l1e3rer471t" path="res://src/counters/container_counter/ContainerCounter.cs" id="1_container"]
+[ext_resource type="PackedScene" uid="uid://c26ow4i1b7xht" path="res://src/counters/visuals/Kitchen Counter.fbx" id="2_counter"]
+[ext_resource type="ArrayMesh" uid="uid://b7gtyqxn4cdv4" path="res://src/counters/container_counter/visuals/base_counter_mesh.tres" id="3_j6rvb"]
+[ext_resource type="Material" uid="uid://csh48c3mfiso5" path="res://src/counters/visuals/CounterMaterial.tres" id="3_material"]
+[ext_resource type="Material" uid="uid://cxbdkvfkmb1tf" path="res://src/counters/visuals/CounterHighlight.tres" id="4_highlight"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_container"]
+size = Vector3(0.91700745, 0.8654785, 0.8981018)
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KitchenCounterVisual/Counter:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_highlight"]
+resource_name = "highlight"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KitchenCounterVisual/Counter:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_material"), ExtResource("4_highlight")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_container"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"highlight": SubResource("Animation_highlight")
+}
+
+[node name="ContainerCounter" type="StaticBody3D" unique_id=1891939450]
+collision_layer = 19
+script = ExtResource("1_container")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1977776099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2411346e-05, 0.4167999, 0.015274048)
+shape = SubResource("BoxShape3D_container")
+
+[node name="KitchenCounterVisual" parent="." unique_id=1647704449 instance=ExtResource("2_counter")]
+
+[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=1680555193]
+mesh = ExtResource("3_j6rvb")
+surface_material_override/0 = ExtResource("3_material")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875993170]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_container")
+
+[node name="CarryingPosition" type="Marker3D" parent="." unique_id=1710027759]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84985036, 0)
+
+[editable path="KitchenCounterVisual"]

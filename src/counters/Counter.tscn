@@ -45,7 +45,7 @@ _data = {
 &"highlight": SubResource("Animation_5uxfi")
 }
 
-[node name="ClearCounter" type="StaticBody3D" unique_id=532112847]
+[node name="Counter" type="StaticBody3D" unique_id=532112847]
 collision_layer = 19
 script = ExtResource("1_fqgqk")
 

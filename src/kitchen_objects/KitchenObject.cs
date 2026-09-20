@@ -15,6 +15,8 @@ public enum KitchenObjectType
   None,
   Tomato,
   SlicedTomato,
+  CheeseBlock,
+  SlicedCheese
 }
 
 [Meta(typeof(IAutoNode))]

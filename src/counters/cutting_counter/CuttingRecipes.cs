@@ -2,7 +2,7 @@ namespace KitchenChaos;
 
 public static class CuttingRecipes
 {
-  public const double TomatoCuttingDuration = 3.0;
+  public const double TOMATO_CUTTING_DURATION = 3.0;
 
   public static bool TryGet(
     KitchenObjectType input,
@@ -13,7 +13,13 @@ public static class CuttingRecipes
     if (input == KitchenObjectType.Tomato)
     {
       output = KitchenObjectType.SlicedTomato;
-      duration = TomatoCuttingDuration;
+      duration = TOMATO_CUTTING_DURATION;
+      return true;
+    }
+    else if (input == KitchenObjectType.CheeseBlock)
+    {
+      output = KitchenObjectType.SlicedCheese;
+      duration = TOMATO_CUTTING_DURATION;
       return true;
     }
 

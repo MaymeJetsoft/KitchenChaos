@@ -12,8 +12,9 @@
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="10_t2vkt"]
 [ext_resource type="PackedScene" uid="uid://bd0e1bjbg3geh" path="res://src/map/Terrain.tscn" id="11_abpbr"]
 [ext_resource type="PackedScene" uid="uid://ci78q7ikl26fh" path="res://src/counters/Counter.tscn" id="12_caf7v"]
-[ext_resource type="Script" uid="uid://c4l1e3rer471t" path="res://src/counters/container_counter/ContainerCounter.cs" id="13_y74f3"]
-[ext_resource type="PackedScene" uid="uid://c0nupdviqed1" path="res://src/kitchen_objects/tomato/Tomato.tscn" id="14_dbqu2"]
+[ext_resource type="PackedScene" uid="uid://d4fqsmje3dmwk" path="res://src/counters/container_counter/TomatoContainerCounter.tscn" id="13_container"]
+[ext_resource type="PackedScene" uid="uid://rradokosbgs7" path="res://src/counters/container_counter/CheeseContainerCounter.tscn" id="14_dbqu2"]
+[ext_resource type="PackedScene" uid="uid://pgdkg23eolrr" path="res://src/kitchen_objects/cheese_block/CheeseBlock.tscn" id="15_xcm54"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hi63v"]
 shader = ExtResource("1_ne2vg")
@@ -68,8 +69,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.054069504, 0.054069504)
-shader_parameter/cirrus_position2 = Vector2(0.054069504, 0.054069504)
+shader_parameter/cirrus_position1 = Vector2(0.7506583, 0.7506583)
+shader_parameter/cirrus_position2 = Vector2(0.7506583, 0.7506583)
 shader_parameter/cirrus_texture = ExtResource("2_abpbr")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -79,7 +80,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.27035135, 0.27035135)
+shader_parameter/cumulus_position = Vector2(3.7536256, 3.7536256)
 shader_parameter/cumulus_texture = ExtResource("3_caf7v")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -151,11 +152,12 @@ current_time = 14.0
 
 [node name="ClearCounter" parent="World/Counters" unique_id=1182774818 instance=ExtResource("12_caf7v")]
 
-[node name="ClearCounter2" parent="World/Counters" unique_id=532112847 instance=ExtResource("12_caf7v")]
+[node name="TomatoCounter" parent="World/Counters" unique_id=213976403 instance=ExtResource("13_container")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-script = ExtResource("13_y74f3")
-GeneratedType = 1
-KitchenObjectScene = ExtResource("14_dbqu2")
 
 [node name="ClearCounter3" parent="World/Counters" unique_id=1844286322 instance=ExtResource("12_caf7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="CheeseCounter" parent="World/Counters" unique_id=812667382 instance=ExtResource("14_dbqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+KitchenObjectScene = ExtResource("15_xcm54")
