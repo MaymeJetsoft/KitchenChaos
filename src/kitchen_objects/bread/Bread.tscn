@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://hnfeo8dv3uum"]
+
+[ext_resource type="PackedScene" uid="uid://dycibrvp5rd0u" path="res://src/kitchen_objects/bread/visuals/Bread bottom.fbx" id="1_ep3nl"]
+[ext_resource type="Script" uid="uid://cllvws3jw08na" path="res://src/kitchen_objects/bread/Bread.cs" id="1_mqaoo"]
+[ext_resource type="PackedScene" uid="uid://ciqvkocm4nip7" path="res://src/kitchen_objects/bread/visuals/Bread top.fbx" id="3_qmk40"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
+radius = 0.21431315
+
+[node name="Bread" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_mqaoo")
+
+[node name="BreadVisual" parent="." unique_id=1062983998 instance=ExtResource("1_ep3nl")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Bread top" parent="BreadVisual" unique_id=538376018 instance=ExtResource("3_qmk40")]
+transform = Transform3D(1, 0, 0, 0, 0.990785, -0.13544409, 0, 0.13544409, 0.990785, 0, 0.056398988, 0.004855007)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08606183, 0)
+shape = SubResource("SphereShape3D_tg3de")

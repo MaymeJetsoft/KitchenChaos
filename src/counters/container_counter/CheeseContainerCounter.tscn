@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://rradokosbgs7"]
 
 [ext_resource type="PackedScene" uid="uid://la6vadrngkmm" path="res://src/counters/container_counter/ContainerCounter.tscn" id="1_w4jfm"]
-[ext_resource type="PackedScene" uid="uid://c0nupdviqed1" path="res://src/kitchen_objects/tomato/Tomato.tscn" id="2_bse1y"]
+[ext_resource type="PackedScene" uid="uid://pgdkg23eolrr" path="res://src/kitchen_objects/cheese_block/CheeseBlock.tscn" id="2_w4jfm"]
 [ext_resource type="Texture2D" uid="uid://r2gxutry8v00" path="res://src/counters/container_counter/visuals/base_counter_texture.png" id="3_dxcn3"]
 [ext_resource type="Texture2D" uid="uid://5ptaox81b5jk" path="res://src/counters/container_counter/visuals/CheeseBlock.png" id="4_w4jfm"]
 
@@ -9,7 +9,8 @@
 albedo_texture = ExtResource("3_dxcn3")
 
 [node name="ContainerCounter" unique_id=812667382 instance=ExtResource("1_w4jfm")]
-KitchenObjectScene = ExtResource("2_bse1y")
+GeneratedType = 4
+KitchenObjectScene = ExtResource("2_w4jfm")
 
 [node name="Counter" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="0" unique_id=343670403]
 surface_material_override/0 = SubResource("StandardMaterial3D_5lli5")

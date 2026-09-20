@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://la6vadrngkmm" path="res://src/counters/container_counter/ContainerCounter.tscn" id="1_base"]
 [ext_resource type="PackedScene" uid="uid://c0nupdviqed1" path="res://src/kitchen_objects/tomato/Tomato.tscn" id="2_tomato"]
 [ext_resource type="Texture2D" uid="uid://r2gxutry8v00" path="res://src/counters/container_counter/visuals/base_counter_texture.png" id="4_5lli5"]
-[ext_resource type="Texture2D" uid="uid://d4fa28lwnrny5" path="res://src/counters/container_counter/visuals/Tomato.png" id="4_5xmyg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5lli5"]
 albedo_texture = ExtResource("4_5lli5")
@@ -13,10 +12,5 @@ KitchenObjectScene = ExtResource("2_tomato")
 
 [node name="Counter" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="0" unique_id=343670403]
 surface_material_override/0 = SubResource("StandardMaterial3D_5lli5")
-
-[node name="TopLogo" type="Sprite3D" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="1" unique_id=1016357219]
-unique_name_in_owner = true
-transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, 0.25, 0, -0.25, -1.0927847e-08, 0, 0.84, 0)
-texture = ExtResource("4_5xmyg")
 
 [editable path="KitchenCounterVisual"]

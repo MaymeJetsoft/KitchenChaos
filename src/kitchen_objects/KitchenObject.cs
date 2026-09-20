@@ -13,6 +13,7 @@ public interface IKitchenObject : IStaticBody3D
 public enum KitchenObjectType
 {
   None,
+  Bread,
   Tomato,
   SlicedTomato,
   CheeseBlock,
