@@ -19,9 +19,9 @@ public partial class ClearCounter : Counter
   protected override void StartCounterLogic() =>
     CounterLogic.Start<ClearCounterLogicState>();
 
-  public override void OnResolved()
+  protected override void BindCounterOutputs()
   {
-    base.OnResolved();
+    base.BindCounterOutputs();
 
     CounterBinding
       .OnOutput((in ClearCounterLogicState.Output.PlaceRequested _) =>

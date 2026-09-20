@@ -73,8 +73,6 @@ IProvide<PlayerLogic.Settings>
   public void Carry(KitchenObject carryingObject)
   {
     _bearable.Carry(carryingObject);
-    PlayerLogic.Input(new PlayerLogicState.Input.PickUpCompleted());
-    PlayerLogic.Input(new PlayerLogicState.Input.InteractionCompleted());
   }
 
   public KitchenObject? Take() => _bearable.Take();
@@ -237,22 +235,15 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
 
     // Raycast to check if the player is standing in front of a counter
-    if (CounterRayCast3D.IsColliding())
-    {
-      var collider = CounterRayCast3D.GetCollider();
-      if (collider is ICounter counter)
-      {
-        PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(counter));
+    var counter = GetFacingCounter();
+    PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(counter));
 
-        if (counter.CanInteract() && Input.IsActionJustPressed(GameInputs.Interact))
-        {
-          PlayerLogic.Input(new PlayerLogicState.Input.InteractionStarted(counter));
-        }
-      }
-    }
-    else
+    if (counter is not null)
     {
-      PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(null));
+      if (counter.CanInteract() && Input.IsActionJustPressed("interact"))
+      {
+        PlayerLogic.Input(new PlayerLogicState.Input.InteractionStarted(counter));
+      }
     }
 
     // var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
@@ -266,6 +257,27 @@ IProvide<PlayerLogic.Settings>
     MoveAndSlide();
 
     PlayerLogic.Input(new PlayerLogicState.Input.Moved(GlobalPosition));
+  }
+
+  private ICounter? GetFacingCounter()
+  {
+    if (!CounterRayCast3D.IsColliding())
+    {
+      return null;
+    }
+
+    var collider = CounterRayCast3D.GetCollider() as Node;
+    while (collider is not null)
+    {
+      if (collider is ICounter counter)
+      {
+        return counter;
+      }
+
+      collider = collider.GetParent();
+    }
+
+    return null;
   }
 
   public static bool ShouldJump(bool jumpPressed, bool jumpJustPressed) =>

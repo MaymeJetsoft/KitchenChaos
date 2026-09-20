@@ -12,12 +12,12 @@ state "PlayerLogicState" as KitchenChaos_PlayerLogicState {
   state "Disabled" as KitchenChaos_PlayerLogicState_Disabled
 }
 
+KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : FacingCounterChanged
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : Moved
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : PhysicsTick
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : Pushed
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Dead : Killed
 KitchenChaos_PlayerLogicState_Disabled --> KitchenChaos_PlayerLogicState_Idle : Enable
-KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : FacingCounterChanged
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : InteractionStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Interacting : InteractionStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Moving : StartedMovingHorizontally

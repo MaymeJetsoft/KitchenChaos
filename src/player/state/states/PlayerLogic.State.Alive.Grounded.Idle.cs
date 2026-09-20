@@ -10,7 +10,6 @@ public abstract partial record PlayerLogicState
   [Meta, Id("player_logic_state_alive_grounded_idle")]
   public partial record Idle : Grounded,
     IGet<Input.StartedMovingHorizontally>,
-    IGet<Input.FacingCounterChanged>,
     IGet<Input.InteractionStarted>
   {
     public Idle()
@@ -20,13 +19,6 @@ public abstract partial record PlayerLogicState
 
     public Type On(in Input.StartedMovingHorizontally input) =>
       To<Moving>();
-
-    public Type On(in Input.FacingCounterChanged input)
-    {
-      Get<IGameRepo>().SetFacingCounter(input.Counter);
-
-      return ToSelf();
-    }
 
     public Type On(in Input.InteractionStarted input)
     {

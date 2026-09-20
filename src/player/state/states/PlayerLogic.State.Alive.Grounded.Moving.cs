@@ -17,5 +17,6 @@ public abstract partial record PlayerLogicState
 
     public Type On(in Input.StoppedMovingHorizontally input) =>
       To<Idle>();
+
   }
 }

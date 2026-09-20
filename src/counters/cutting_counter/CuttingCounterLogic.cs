@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks;
 public interface ICuttingCounterLogic : ICounterLogic;
 
 [Meta]
-public partial class CuttingCounterLogic : LogicBlock, ICuttingCounterLogic
+public partial class CuttingCounterLogic : CounterLogic, ICuttingCounterLogic
 {
   [Meta]
   public partial class Data

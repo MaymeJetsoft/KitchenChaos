@@ -14,7 +14,8 @@ public partial record PlayerLogicState
     IGet<Input.PhysicsTick>,
     IGet<Input.Moved>,
     IGet<Input.Pushed>,
-    IGet<Input.Killed>
+    IGet<Input.Killed>,
+    IGet<Input.FacingCounterChanged>
   {
     // Movement is allowed in any state (even in the air), so these inputs
     // handle movement for each substate unless overridden.
@@ -28,6 +29,12 @@ public partial record PlayerLogicState
       Get<IGameRepo>().OnGameEnded(GameOverReason.Lost);
 
       return To<Dead>();
+    }
+
+    public virtual Type On(in Input.FacingCounterChanged input)
+    {
+      Get<IGameRepo>().SetFacingCounter(input.Counter);
+      return ToSelf();
     }
 
     public virtual Type On(in Input.PhysicsTick input)

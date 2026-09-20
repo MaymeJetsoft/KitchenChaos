@@ -23,9 +23,9 @@ public partial class CuttingCounter : Counter
   protected override void StartCounterLogic() =>
     CounterLogic.Start<CuttingCounterLogicState.Empty>();
 
-  public override void OnResolved()
+  protected override void BindCounterOutputs()
   {
-    base.OnResolved();
+    base.BindCounterOutputs();
 
     CounterBinding
       .OnOutput((in CuttingCounterLogicState.Output.PlaceRequested _) =>

@@ -10,9 +10,8 @@ public interface ICounter : IStaticBody3D, IBearable
 {
   bool CanInteract();
   void Interact(IPlayer player);
-  // void ShowInteractable();
-  // void HideInteractable();
-  // virtual void SpawnKitchenObject() => GD.PushWarning("SpawnKitchenObject is not implemented for this counter.");
+  void ShowInteractable();
+  void HideInteractable();
 }
 
 [Meta(typeof(IAutoNode))]
@@ -61,6 +60,9 @@ public partial class Counter : StaticBody3D, ICounter
   public virtual void Interact(IPlayer player) =>
     GD.PushWarning($"{GetType().Name} does not implement interaction.");
 
+  public void ShowInteractable() => AnimationPlayer.Play("highlight");
+  public void HideInteractable() => AnimationPlayer.Play("RESET");
+
   #endregion Bearable
 
   #region State
@@ -80,6 +82,21 @@ public partial class Counter : StaticBody3D, ICounter
   protected virtual void StartCounterLogic() =>
     CounterLogic.Start<CounterLogicState>();
 
+  protected virtual void BindCounterOutputs() =>
+    CounterBinding.OnOutput(
+      (in CounterLogicState.Output.FacingCounterChanged output) =>
+      {
+        if (output.Counter == this)
+        {
+          ShowInteractable();
+        }
+        else
+        {
+          HideInteractable();
+        }
+      }
+    );
+
   public virtual void OnResolved()
   {
     CounterLogic.Set(this);
@@ -87,26 +104,7 @@ public partial class Counter : StaticBody3D, ICounter
 
     CounterBinding = CounterLogic.Bind();
 
-    // CounterBinding
-    // // .OnOutput((in CounterLogicState.Output.CounterInteracted output) =>
-    // // {
-    // //   if (output.Counter == this)
-    // //   {
-    // //     Interact(null!);
-    // //   }
-    // // })
-    // // .OnOutput((in CounterLogicState.Output.FacingCounterChanged output) =>
-    // // {
-    // //   if (output.Counter == this)
-    // //   {
-    // //     ShowInteractable();
-    // //   }
-    // //   else
-    // //   {
-    // //     HideInteractable();
-    // //   }
-    // // })
-    // ;
+    BindCounterOutputs();
 
     StartCounterLogic();
   }

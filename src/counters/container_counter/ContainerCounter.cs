@@ -26,20 +26,18 @@ public partial class ContainerCounter : Counter
   protected override void StartCounterLogic() =>
     CounterLogic.Start<ContainerCounterLogicState>();
 
-  public override void OnResolved()
+  protected override void BindCounterOutputs()
   {
-    base.OnResolved();
+    base.BindCounterOutputs();
     CounterBinding.OnOutput(
       (in ContainerCounterLogicState.Output.SpawnRequested output) =>
       {
-        if (_interactingPlayer is null || KitchenObjectScene is null)
+        if (_interactingPlayer is not Player player)
         {
           return;
         }
 
-        var kitchenObject = KitchenObjectScene.Instantiate<KitchenObject>();
-        kitchenObject.Type = output.Type;
-        _interactingPlayer.Carry(kitchenObject);
+        SpawnKitchenObject(player, output.Type);
       }
     );
   }
@@ -50,5 +48,18 @@ public partial class ContainerCounter : Counter
     ContainerCounterLogic.Input(
       new ContainerCounterLogicState.Input.Interact(player.HasKitchenObject())
     );
+  }
+
+  private void SpawnKitchenObject(Player player, KitchenObjectType type)
+  {
+    if (KitchenObjectScene is null)
+    {
+      GD.PushError($"{Name}: KitchenObjectScene is not configured.");
+      return;
+    }
+
+    var kitchenObject = KitchenObjectScene.Instantiate<KitchenObject>();
+    kitchenObject.Type = type;
+    player.Carry(kitchenObject);
   }
 }

@@ -6,7 +6,7 @@ using Chickensoft.LogicBlocks;
 public interface IClearCounterLogic : ICounterLogic;
 
 [Meta]
-public partial class ClearCounterLogic : LogicBlock, IClearCounterLogic
+public partial class ClearCounterLogic : CounterLogic, IClearCounterLogic
 {
   public ClearCounterLogic()
   {
