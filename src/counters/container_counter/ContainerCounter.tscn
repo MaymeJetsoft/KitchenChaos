@@ -56,7 +56,7 @@ shape = SubResource("BoxShape3D_container")
 
 [node name="KitchenCounterVisual" parent="." unique_id=1647704449 instance=ExtResource("2_counter")]
 
-[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=1680555193]
+[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=343670403]
 mesh = ExtResource("3_j6rvb")
 surface_material_override/0 = ExtResource("3_material")
 

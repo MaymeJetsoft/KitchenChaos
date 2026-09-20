@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://cxbdkvfkmb1tf"]
 
-[ext_resource type="Texture2D" uid="uid://yp74xpt0verp" path="res://src/counters/visuals/CounterTexture.png" id="1_rl40p"]
+[ext_resource type="Texture2D" uid="uid://3hkqnyl3nw41" path="res://src/counters/visuals/CounterTexture.png" id="1_rl40p"]
 
 [resource]
 albedo_color = Color(3.2944162, 3.2944162, 3.2944162, 1)
