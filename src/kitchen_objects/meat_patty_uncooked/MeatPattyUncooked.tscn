@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cxdj0ec3ja5q3"]
+
+[ext_resource type="Script" uid="uid://cijyit4f8eut3" path="res://src/kitchen_objects/meat_patty_uncooked/MeatPattyUncooked.cs" id="1_c72pg"]
+[ext_resource type="PackedScene" uid="uid://pr6bw8qkqi00" path="res://src/kitchen_objects/meat_patty_uncooked/visuals/Uncooked meat patty.fbx" id="2_7vdtk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i2xwh"]
+size = Vector3(0.44786072, 0.068603516, 0.43154907)
+
+[node name="MeatPattyUncooked" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_c72pg")
+
+[node name="CabbageVisual" parent="." unique_id=1062983998 instance=ExtResource("2_7vdtk")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016098022, 0.0004323125, 0.0002593994)
+shape = SubResource("BoxShape3D_i2xwh")

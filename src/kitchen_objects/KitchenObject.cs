@@ -14,10 +14,15 @@ public enum KitchenObjectType
 {
   None,
   Bread,
-  Tomato,
-  SlicedTomato,
+  Cabbage,
+  CabbageSliced,
+  MeatPattyUncooked,
+  MeatPattyCooked,
+  MeatPattyBurned,
   CheeseBlock,
-  SlicedCheese
+  CheeseSliced,
+  Tomato,
+  TomatoSliced
 }
 
 [Meta(typeof(IAutoNode))]

@@ -12,13 +12,13 @@ public static class CuttingRecipes
   {
     if (input == KitchenObjectType.Tomato)
     {
-      output = KitchenObjectType.SlicedTomato;
+      output = KitchenObjectType.TomatoSliced;
       duration = TOMATO_CUTTING_DURATION;
       return true;
     }
     else if (input == KitchenObjectType.CheeseBlock)
     {
-      output = KitchenObjectType.SlicedCheese;
+      output = KitchenObjectType.CheeseSliced;
       duration = TOMATO_CUTTING_DURATION;
       return true;
     }

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ij5lfaybcvrq"]
+
+[ext_resource type="Script" uid="uid://dquvtrwmrymmu" path="res://src/kitchen_objects/cabbage/Cabbage.cs" id="1_ey1hj"]
+[ext_resource type="PackedScene" uid="uid://bnvi2k86tcau6" path="res://src/kitchen_objects/cabbage/visuals/Cabbage.fbx" id="2_aqa58"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
+radius = 0.16394585
+
+[node name="Cabbage" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_ey1hj")
+
+[node name="CabbageVisual" parent="." unique_id=1062983998 instance=ExtResource("2_aqa58")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15973407, 0)
+shape = SubResource("SphereShape3D_tg3de")
