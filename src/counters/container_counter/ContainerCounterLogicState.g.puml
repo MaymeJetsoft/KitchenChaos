@@ -3,5 +3,5 @@ state "ContainerCounterLogicState" as KitchenChaos_ContainerCounterLogicState
 
 KitchenChaos_ContainerCounterLogicState --> KitchenChaos_ContainerCounterLogicState : Interact
 
-KitchenChaos_ContainerCounterLogicState : OnInteract → InteractionRejected, SpawnRequested
+KitchenChaos_ContainerCounterLogicState : OnInteract → InteractionRejected, SpawnRequested, TakeRequested
 @enduml

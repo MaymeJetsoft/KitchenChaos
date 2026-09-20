@@ -37,20 +37,28 @@ public partial class ContainerCounter : Counter
           return;
         }
 
-        SpawnKitchenObject(player, output.Type);
+        SpawnKitchenObject(output.Type);
       }
-    );
+    )
+    .OnOutput((in ContainerCounterLogicState.Output.TakeRequested _) =>
+      {
+        var kitchenObject = Take();
+        if (kitchenObject is not null)
+        {
+          _interactingPlayer?.Carry(kitchenObject);
+        }
+      });
   }
 
   public override void Interact(IPlayer player)
   {
     _interactingPlayer = player;
     ContainerCounterLogic.Input(
-      new ContainerCounterLogicState.Input.Interact(player.HasKitchenObject())
+      new ContainerCounterLogicState.Input.Interact(player.HasKitchenObject(), HasKitchenObject())
     );
   }
 
-  private void SpawnKitchenObject(Player player, KitchenObjectType type)
+  private void SpawnKitchenObject(KitchenObjectType type)
   {
     if (KitchenObjectScene is null)
     {
@@ -60,6 +68,6 @@ public partial class ContainerCounter : Counter
 
     var kitchenObject = KitchenObjectScene.Instantiate<KitchenObject>();
     kitchenObject.Type = type;
-    player.Carry(kitchenObject);
+    Carry(kitchenObject);
   }
 }

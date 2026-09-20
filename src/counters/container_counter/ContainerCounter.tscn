@@ -5,6 +5,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b7gtyqxn4cdv4" path="res://src/counters/container_counter/visuals/base_counter_mesh.tres" id="3_j6rvb"]
 [ext_resource type="Material" uid="uid://csh48c3mfiso5" path="res://src/counters/visuals/CounterMaterial.tres" id="3_material"]
 [ext_resource type="Material" uid="uid://cxbdkvfkmb1tf" path="res://src/counters/visuals/CounterHighlight.tres" id="4_highlight"]
+[ext_resource type="Texture2D" uid="uid://d4fa28lwnrny5" path="res://src/counters/container_counter/visuals/Tomato.png" id="5_4jhvu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_container"]
 size = Vector3(0.91700745, 0.8654785, 0.8981018)
@@ -59,6 +60,11 @@ shape = SubResource("BoxShape3D_container")
 [node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=343670403]
 mesh = ExtResource("3_j6rvb")
 surface_material_override/0 = ExtResource("3_material")
+
+[node name="TopLogo" type="Sprite3D" parent="KitchenCounterVisual" unique_id=1468995226]
+unique_name_in_owner = true
+transform = Transform3D(0.25, 0, 0, 0, -1.0927847e-08, 0.25, 0, -0.25, -1.0927847e-08, 0, 0.84, 0)
+texture = ExtResource("5_4jhvu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875993170]
 unique_name_in_owner = true
