@@ -9,6 +9,7 @@ using Godot;
 public interface IBearable : INode3D
 {
   void Carry(KitchenObject carryingObject);
+  KitchenObject? Take();
   void Drop();
   bool HasKitchenObject();
   KitchenObject? GetKitchenObject();
@@ -26,21 +27,41 @@ public sealed partial class Bearable : Node3D, IBearable
 
   public void Carry(KitchenObject carryingObject)
   {
+    if (CarryingObject is not null && CarryingObject != carryingObject)
+    {
+      throw new InvalidOperationException("A bearable can only carry one kitchen object.");
+    }
+
+    carryingObject.Carrier?.Take();
+    carryingObject.Carrier = this;
+
     CarryingObject = carryingObject;
     if (CarryingPosition != null)
     {
       var parent = carryingObject.GetParent();
-      if (parent is Bearable bearable)
-      {
-        bearable.CarryingObject = null;
-      }
       parent?.RemoveChild(carryingObject);
       CarryingPosition.AddChild(carryingObject);
     }
   }
 
+  public KitchenObject? Take()
+  {
+    var carryingObject = CarryingObject;
+    CarryingObject = null;
+    if (carryingObject is not null)
+    {
+      carryingObject.Carrier = null;
+    }
+    carryingObject?.GetParent()?.RemoveChild(carryingObject);
+    return carryingObject;
+  }
+
   public void Drop()
   {
+    if (CarryingObject is not null)
+    {
+      CarryingObject.Carrier = null;
+    }
     CarryingObject?.QueueFree();
     CarryingObject = null;
   }

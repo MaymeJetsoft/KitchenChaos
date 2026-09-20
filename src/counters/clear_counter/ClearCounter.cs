@@ -2,39 +2,52 @@ namespace KitchenChaos;
 
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
-using Godot;
-
-public interface IClearCounter : ICounter
-{
-}
 
 [Meta(typeof(IAutoNode))]
-public partial class ClearCounter : Counter, IClearCounter
+public partial class ClearCounter : Counter
 {
-  public override void _Notification(int what) => this.Notify(what);
+  public IClearCounterLogic ClearCounterLogic { get; set; } = default!;
+  private IPlayer? _interactingPlayer;
 
-  #region Nodes
-
-  [Export]
-  public PackedScene KitchenObjectScene { get; set; } = null!;
-
-  #endregion Nodes
-
-  public void SpawnKitchenObject()
+  public override void Setup()
   {
-    if (KitchenObjectScene == null || GetKitchenObject() != null)
-    {
-      GD.PushWarning("Cannot spawn a kitchen object.");
-      return;
-    }
+    base.Setup();
+    ClearCounterLogic = new ClearCounterLogic();
+    CounterLogic = ClearCounterLogic;
+  }
 
-    var kitchenObject = KitchenObjectScene.InstantiateOrNull<KitchenObject>();
-    if (kitchenObject == null)
-    {
-      GD.PushWarning("KitchenObjectScene must have a KitchenObject root script.");
-      return;
-    }
+  protected override void StartCounterLogic() =>
+    CounterLogic.Start<ClearCounterLogicState>();
 
-    Carry(kitchenObject);
+  public override void OnResolved()
+  {
+    base.OnResolved();
+
+    CounterBinding
+      .OnOutput((in ClearCounterLogicState.Output.PlaceRequested _) =>
+      {
+        var kitchenObject = _interactingPlayer?.Take();
+        if (kitchenObject is not null)
+        {
+          Carry(kitchenObject);
+        }
+      })
+      .OnOutput((in ClearCounterLogicState.Output.TakeRequested _) =>
+      {
+        var kitchenObject = Take();
+        if (kitchenObject is not null)
+        {
+          _interactingPlayer?.Carry(kitchenObject);
+        }
+      });
+  }
+
+  public override void Interact(IPlayer player)
+  {
+    _interactingPlayer = player;
+    ClearCounterLogic.Input(new ClearCounterLogicState.Input.Interact(
+      player.HasKitchenObject(),
+      HasKitchenObject()
+    ));
   }
 }

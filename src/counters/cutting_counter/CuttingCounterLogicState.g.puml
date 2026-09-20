@@ -1,0 +1,19 @@
+@startuml CuttingCounterLogicState
+state "CuttingCounterLogicState" as KitchenChaos_CuttingCounterLogicState {
+  state "Cutting" as KitchenChaos_CuttingCounterLogicState_Cutting
+  state "Empty" as KitchenChaos_CuttingCounterLogicState_Empty
+  state "Occupied" as KitchenChaos_CuttingCounterLogicState_Occupied
+}
+
+KitchenChaos_CuttingCounterLogicState_Cutting --> KitchenChaos_CuttingCounterLogicState_Cutting : PhysicsTick
+KitchenChaos_CuttingCounterLogicState_Cutting --> KitchenChaos_CuttingCounterLogicState_Occupied : PhysicsTick
+KitchenChaos_CuttingCounterLogicState_Empty --> KitchenChaos_CuttingCounterLogicState_Empty : Interact
+KitchenChaos_CuttingCounterLogicState_Empty --> KitchenChaos_CuttingCounterLogicState_Occupied : Interact
+KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Cutting : Interact
+KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Empty : Interact
+KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Occupied : Interact
+
+KitchenChaos_CuttingCounterLogicState_Cutting : OnPhysicsTick → ItemCut, ProgressChanged
+KitchenChaos_CuttingCounterLogicState_Empty : OnInteract → InteractionRejected, PlaceRequested
+KitchenChaos_CuttingCounterLogicState_Occupied : OnInteract → CuttingStarted, InteractionRejected, TakeRequested
+@enduml

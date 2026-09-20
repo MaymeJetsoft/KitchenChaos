@@ -17,20 +17,14 @@ public abstract partial record PlayerLogicState
       {
         var counter = Get<PlayerLogic.Data>().CurrentCounter;
         counter?.Interact(Get<IPlayer>());
-        FinishInteraction();
+        Input(new Input.InteractionCompleted(counter));
       });
     }
 
-    public Type On(in Input.InteractionCompleted input) =>
-      To<Idle>();
-
-    private void FinishInteraction()
+    public Type On(in Input.InteractionCompleted input)
     {
-      //TODO: need to trigger interactionCompleted from OnAnimationFinished
-      var counter = Get<PlayerLogic.Data>().CurrentCounter;
       Get<PlayerLogic.Data>().CurrentCounter = null;
-      GD.Print("Interaction completed with Counter: " + counter);
-      Input(new Input.InteractionCompleted());
+      return To<Idle>();
     }
   }
 }

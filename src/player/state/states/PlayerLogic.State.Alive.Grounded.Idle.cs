@@ -23,39 +23,17 @@ public abstract partial record PlayerLogicState
 
     public Type On(in Input.FacingCounterChanged input)
     {
-      var counter = input.Counter;
-      if (counter is not null)
-      {
-        if (counter.CanInteract())
-        {
-          Get<IGameRepo>().SetFacingCounter(counter);
-        }
-      }
-      else
-      {
-        Get<IGameRepo>().SetFacingCounter(null);
-      }
+      Get<IGameRepo>().SetFacingCounter(input.Counter);
 
       return ToSelf();
     }
 
     public Type On(in Input.InteractionStarted input)
     {
-      var counter = input.Counter;
-      if (counter is not null && counter.CanInteract())
+      if (input.Counter.CanInteract())
       {
-        if (counter is IBearable bearable && bearable.HasKitchenObject())
-        {
-          Get<PlayerLogic.Data>().PickupKitchenObject = bearable.GetKitchenObject();
-          GD.Print("Pickup KitchenObject: " + Get<PlayerLogic.Data>().PickupKitchenObject);
-          return To<PickingUp>();
-        }
-        else
-        {
-          Get<PlayerLogic.Data>().CurrentCounter = counter;
-          GD.Print("Interacting with Current Counter: " + Get<PlayerLogic.Data>().CurrentCounter);
-          return To<Interacting>();
-        }
+        Get<PlayerLogic.Data>().CurrentCounter = input.Counter;
+        return To<Interacting>();
       }
 
       return ToSelf();

@@ -10,9 +10,9 @@ public interface ICounter : IStaticBody3D, IBearable
 {
   bool CanInteract();
   void Interact(IPlayer player);
-  void ShowInteractable();
-  void HideInteractable();
-  virtual void SpawnKitchenObject() => GD.PushWarning("SpawnKitchenObject is not implemented for this counter.");
+  // void ShowInteractable();
+  // void HideInteractable();
+  // virtual void SpawnKitchenObject() => GD.PushWarning("SpawnKitchenObject is not implemented for this counter.");
 }
 
 [Meta(typeof(IAutoNode))]
@@ -52,9 +52,14 @@ public partial class Counter : StaticBody3D, ICounter
   }
 
   public void Carry(KitchenObject carryingObject) => _bearable.Carry(carryingObject);
+  public KitchenObject? Take() => _bearable.Take();
   public void Drop() => _bearable.Drop();
+  public bool CanInteract() => IsInteractable;
   public bool HasKitchenObject() => _bearable.HasKitchenObject();
   public KitchenObject? GetKitchenObject() => _bearable.GetKitchenObject();
+
+  public virtual void Interact(IPlayer player) =>
+    GD.PushWarning($"{GetType().Name} does not implement interaction.");
 
   #endregion Bearable
 
@@ -66,78 +71,49 @@ public partial class Counter : StaticBody3D, ICounter
 
   #endregion State
 
-  public void Setup()
+  public virtual void Setup()
   {
     AddChild(_bearable);
     CounterLogic = new CounterLogic();
   }
 
-  public void OnResolved()
+  protected virtual void StartCounterLogic() =>
+    CounterLogic.Start<CounterLogicState>();
+
+  public virtual void OnResolved()
   {
     CounterLogic.Set(this);
     CounterLogic.Set(GameRepo);
 
     CounterBinding = CounterLogic.Bind();
 
-    CounterBinding
-      .OnOutput((in CounterLogicState.Output.CounterInteracted output) =>
-      {
-        if (output.Counter == this)
-        {
-          Interact(null!);
-        }
-      })
-      .OnOutput((in CounterLogicState.Output.FacingCounterChanged output) =>
-      {
-        if (output.Counter == this)
-        {
-          ShowInteractable();
-        }
-        else
-        {
-          HideInteractable();
-        }
-      });
+    // CounterBinding
+    // // .OnOutput((in CounterLogicState.Output.CounterInteracted output) =>
+    // // {
+    // //   if (output.Counter == this)
+    // //   {
+    // //     Interact(null!);
+    // //   }
+    // // })
+    // // .OnOutput((in CounterLogicState.Output.FacingCounterChanged output) =>
+    // // {
+    // //   if (output.Counter == this)
+    // //   {
+    // //     ShowInteractable();
+    // //   }
+    // //   else
+    // //   {
+    // //     HideInteractable();
+    // //   }
+    // // })
+    // ;
 
-    CounterLogic.Start<CounterLogicState>();
+    StartCounterLogic();
   }
 
   public void OnExitTree()
   {
     CounterLogic.Stop();
     CounterBinding.Dispose();
-  }
-
-  public bool CanInteract() => IsInteractable;
-  public void ShowInteractable()
-  {
-    // Highlight the counter to indicate that it can be interacted with.
-    GD.Print($"Counter {Name} is now interactable. (counter)");
-    AnimationPlayer.Play("highlight");
-
-    // Show interaction icon
-  }
-
-  public void HideInteractable()
-  {
-    GD.Print($"Counter {Name} is no longer interactable. (counter)");
-    // Remove highlight from the counter.
-    AnimationPlayer.Play("RESET");
-
-    // Hide interaction icon
-  }
-
-  public void Interact(IPlayer player)
-  {
-    if (!CanInteract())
-    {
-      GD.Print($"Counter {Name} cannot be interacted with. (counter)");
-      return;
-    }
-
-    if (this is IClearCounter clearCounter)
-    {
-      clearCounter.SpawnKitchenObject();
-    }
   }
 }

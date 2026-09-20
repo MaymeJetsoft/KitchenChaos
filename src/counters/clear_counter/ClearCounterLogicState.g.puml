@@ -1,0 +1,7 @@
+@startuml ClearCounterLogicState
+state "ClearCounterLogicState" as KitchenChaos_ClearCounterLogicState
+
+KitchenChaos_ClearCounterLogicState --> KitchenChaos_ClearCounterLogicState : Interact
+
+KitchenChaos_ClearCounterLogicState : OnInteract → InteractionRejected, PlaceRequested, TakeRequested
+@enduml

@@ -1,6 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://csh48c3mfiso5"]
-
-[ext_resource type="Texture2D" uid="uid://yp74xpt0verp" path="res://src/counters/clear_counter/visuals/Kitchen Counter_AlbedoTransparency.png" id="1_gk5m3"]
-
-[resource]
-albedo_texture = ExtResource("1_gk5m3")

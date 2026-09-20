@@ -16,10 +16,6 @@ public partial record CounterLogicState : LogicBlockState
       ICounter Counter
     );
 
-    public readonly record struct KitchenObjectSpawned(
-      ICounter Counter
-    );
-
     public readonly record struct KitchenObjectPickedUp(
       ICounter Counter
     );

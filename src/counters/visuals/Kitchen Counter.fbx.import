@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c26ow4i1b7xht"
-path="res://.godot/imported/Kitchen Counter.fbx-31103f7c0346636cc7c3d9e080da01aa.scn"
+path="res://.godot/imported/Kitchen Counter.fbx-002a75825f033ba2e1e276a6a4ebf6fe.scn"
 
 [deps]
 
-source_file="res://src/counters/clear_counter/visuals/Kitchen Counter.fbx"
-dest_files=["res://.godot/imported/Kitchen Counter.fbx-31103f7c0346636cc7c3d9e080da01aa.scn"]
+source_file="res://src/counters/visuals/Kitchen Counter.fbx"
+dest_files=["res://.godot/imported/Kitchen Counter.fbx-002a75825f033ba2e1e276a6a4ebf6fe.scn"]
 
 [params]
 

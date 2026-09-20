@@ -77,6 +77,7 @@ IProvide<PlayerLogic.Settings>
     PlayerLogic.Input(new PlayerLogicState.Input.InteractionCompleted());
   }
 
+  public KitchenObject? Take() => _bearable.Take();
   public void Drop() => _bearable.Drop();
   public bool HasKitchenObject() => _bearable.HasKitchenObject();
   public KitchenObject? GetKitchenObject() => _bearable.GetKitchenObject();

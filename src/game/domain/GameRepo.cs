@@ -94,9 +94,6 @@ public class GameRepo : IGameRepo
   public IAutoValue<ICounter?> FacingCounter => _facingCounter;
   private readonly AutoValue<ICounter?> _facingCounter;
 
-  // public IAutoValue<ICounter> PlayerJustInteracted => _currentCounter;
-  // private readonly AutoValue<ICounter> _currentCounter;
-
   private bool _disposedValue;
 
   public GameRepo()
@@ -106,7 +103,6 @@ public class GameRepo : IGameRepo
     _playerGlobalPosition = new AutoValue<Vector3>(Vector3.Zero);
     _cameraBasis = new AutoValue<Basis>(Basis.Identity);
     _facingCounter = new AutoValue<ICounter?>(null);
-    // _currentCounter = new AutoValue<ICounter>(default!);
   }
 
   internal GameRepo(
@@ -115,7 +111,6 @@ public class GameRepo : IGameRepo
     AutoValue<Vector3> playerGlobalPosition,
     AutoValue<Basis> cameraBasis,
     AutoValue<ICounter?> facingCounter
-  // AutoValue<ICounter> currentCounter
   )
   {
     _isMouseCaptured = isMouseCaptured;
@@ -123,7 +118,6 @@ public class GameRepo : IGameRepo
     _playerGlobalPosition = playerGlobalPosition;
     _cameraBasis = cameraBasis;
     _facingCounter = facingCounter;
-    // _currentCounter = currentCounter;
   }
 
   public void SetPlayerGlobalPosition(Vector3 playerGlobalPosition) =>

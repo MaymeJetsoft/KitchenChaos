@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ci78q7ikl26fh"]
 
-[ext_resource type="Script" uid="uid://dn1eqmxh15eo1" path="res://src/counters/clear_counter/ClearCounter.cs" id="1_fqgqk"]
-[ext_resource type="PackedScene" uid="uid://c26ow4i1b7xht" path="res://src/counters/clear_counter/visuals/Kitchen Counter.fbx" id="2_fqgqk"]
-[ext_resource type="Material" uid="uid://csh48c3mfiso5" path="res://src/counters/clear_counter/visuals/ClearCounterMaterial.tres" id="3_lt0sb"]
-[ext_resource type="Material" uid="uid://cxbdkvfkmb1tf" path="res://src/counters/clear_counter/visuals/ClearCounterHighlight.tres" id="4_5uxfi"]
+[ext_resource type="Script" path="res://src/counters/clear_counter/ClearCounter.cs" id="1_fqgqk"]
+[ext_resource type="PackedScene" uid="uid://c26ow4i1b7xht" path="res://src/counters/visuals/Kitchen Counter.fbx" id="2_fqgqk"]
+[ext_resource type="Material" uid="uid://csh48c3mfiso5" path="res://src/counters/visuals/CounterMaterial.tres" id="3_lt0sb"]
+[ext_resource type="Material" uid="uid://cxbdkvfkmb1tf" path="res://src/counters/visuals/CounterHighlight.tres" id="4_5uxfi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tg3de"]
 size = Vector3(0.91700745, 0.8654785, 0.8981018)

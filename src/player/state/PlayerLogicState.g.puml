@@ -21,7 +21,6 @@ KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : Faci
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : InteractionStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Interacting : InteractionStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Moving : StartedMovingHorizontally
-KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_PickingUp : InteractionStarted
 KitchenChaos_PlayerLogicState_Interacting --> KitchenChaos_PlayerLogicState_Idle : InteractionCompleted
 KitchenChaos_PlayerLogicState_Moving --> KitchenChaos_PlayerLogicState_Idle : StoppedMovingHorizontally
 KitchenChaos_PlayerLogicState_PickingUp --> KitchenChaos_PlayerLogicState_Idle : PickUpCompleted

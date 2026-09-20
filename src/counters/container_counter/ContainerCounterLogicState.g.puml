@@ -1,0 +1,7 @@
+@startuml ContainerCounterLogicState
+state "ContainerCounterLogicState" as KitchenChaos_ContainerCounterLogicState
+
+KitchenChaos_ContainerCounterLogicState --> KitchenChaos_ContainerCounterLogicState : Interact
+
+KitchenChaos_ContainerCounterLogicState : OnInteract → InteractionRejected, SpawnRequested
+@enduml
