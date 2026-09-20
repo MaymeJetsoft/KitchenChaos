@@ -4,6 +4,7 @@ state "PlayerLogicState" as KitchenChaos_PlayerLogicState {
     state "Grounded" as KitchenChaos_PlayerLogicState_Grounded {
       state "Idle" as KitchenChaos_PlayerLogicState_Idle
       state "Interacting" as KitchenChaos_PlayerLogicState_Interacting
+      state "InteractingAlternate" as KitchenChaos_PlayerLogicState_InteractingAlternate
       state "Moving" as KitchenChaos_PlayerLogicState_Moving
       state "PickingUp" as KitchenChaos_PlayerLogicState_PickingUp
     }
@@ -18,10 +19,13 @@ KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : Ph
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Alive : Pushed
 KitchenChaos_PlayerLogicState_Alive --> KitchenChaos_PlayerLogicState_Dead : Killed
 KitchenChaos_PlayerLogicState_Disabled --> KitchenChaos_PlayerLogicState_Idle : Enable
+KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : InteractionAlternateStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Idle : InteractionStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Interacting : InteractionStarted
+KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_InteractingAlternate : InteractionAlternateStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Moving : StartedMovingHorizontally
 KitchenChaos_PlayerLogicState_Interacting --> KitchenChaos_PlayerLogicState_Idle : InteractionCompleted
+KitchenChaos_PlayerLogicState_InteractingAlternate --> KitchenChaos_PlayerLogicState_Idle : InteractionAlternateCompleted
 KitchenChaos_PlayerLogicState_Moving --> KitchenChaos_PlayerLogicState_Idle : StoppedMovingHorizontally
 KitchenChaos_PlayerLogicState_PickingUp --> KitchenChaos_PlayerLogicState_Idle : PickUpCompleted
 

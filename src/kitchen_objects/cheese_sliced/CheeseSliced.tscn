@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bkvqdyc22ngl7"]
+
+[ext_resource type="Script" uid="uid://jdopgbswa6hx" path="res://src/kitchen_objects/tomato/Tomato.cs" id="1_maaek"]
+[ext_resource type="PackedScene" uid="uid://b880gcbpjatf6" path="res://src/kitchen_objects/cheese_sliced/visuals/Cheese slice.fbx" id="2_coeq6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lpsme"]
+size = Vector3(0.20678711, 0.016845703, 0.10864258)
+
+[node name="CheeseSliced" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_maaek")
+Type = 8
+
+[node name="Cheese slice" parent="." unique_id=1762778347 instance=ExtResource("2_coeq6")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=40177699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00314942, 0.00012207031, -0.0014404356)
+shape = SubResource("BoxShape3D_lpsme")

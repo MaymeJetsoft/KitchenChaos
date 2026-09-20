@@ -16,6 +16,8 @@ public abstract partial record PlayerLogicState
     public readonly record struct FacingCounterChanged(ICounter? Counter);
     public readonly record struct InteractionStarted(ICounter Counter);
     public readonly record struct InteractionCompleted(ICounter? Counter = null);
+    public readonly record struct InteractionAlternateStarted(ICounter Counter);
+    public readonly record struct InteractionAlternateCompleted(ICounter? Counter = null);
     public readonly record struct PickUpCompleted(ICounter? Counter = null);
   }
 }

@@ -9,7 +9,9 @@ using Godot;
 public interface ICounter : IStaticBody3D, IBearable
 {
   bool CanInteract();
+  bool CanInteractAlternate();
   void Interact(IPlayer player);
+  void InteractAlternate(IPlayer player);
   void ShowInteractable();
   void HideInteractable();
 }
@@ -23,6 +25,9 @@ public partial class Counter : StaticBody3D, ICounter
 
   [Export]
   public bool IsInteractable { get; set; } = true;
+
+  [Export]
+  public bool IsInteractableAlternate { get; set; } = false;
 
   #endregion Properties
 
@@ -54,11 +59,15 @@ public partial class Counter : StaticBody3D, ICounter
   public KitchenObject? Take() => _bearable.Take();
   public void Drop() => _bearable.Drop();
   public bool CanInteract() => IsInteractable;
+  public bool CanInteractAlternate() => IsInteractableAlternate;
   public bool HasKitchenObject() => _bearable.HasKitchenObject();
   public KitchenObject? GetKitchenObject() => _bearable.GetKitchenObject();
 
   public virtual void Interact(IPlayer player) =>
     GD.PushWarning($"{GetType().Name} does not implement interaction.");
+
+  public virtual void InteractAlternate(IPlayer player) =>
+    GD.PushWarning($"{GetType().Name} does not implement alternate interaction.");
 
   public void ShowInteractable() => AnimationPlayer.Play("highlight");
   public void HideInteractable() => AnimationPlayer.Play("RESET");

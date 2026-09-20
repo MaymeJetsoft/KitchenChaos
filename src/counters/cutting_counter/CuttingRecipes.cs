@@ -22,6 +22,12 @@ public static class CuttingRecipes
       duration = TOMATO_CUTTING_DURATION;
       return true;
     }
+    else if (input == KitchenObjectType.Cabbage)
+    {
+      output = KitchenObjectType.CabbageSliced;
+      duration = TOMATO_CUTTING_DURATION;
+      return true;
+    }
 
     output = KitchenObjectType.None;
     duration = 0.0;

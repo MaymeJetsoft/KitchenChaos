@@ -7,9 +7,6 @@ using Godot;
 [Meta(typeof(IAutoNode))]
 public partial class CuttingCounter : Counter
 {
-  [Export]
-  public PackedScene SlicedKitchenObjectScene { get; set; } = default!;
-
   public ICuttingCounterLogic CuttingCounterLogic { get; set; } = default!;
   private IPlayer? _interactingPlayer;
 
@@ -47,15 +44,15 @@ public partial class CuttingCounter : Counter
       .OnOutput((in CuttingCounterLogicState.Output.ItemCut output) =>
       {
         var previousObject = Take();
+        var slicedScene = previousObject?.KitchenObjectSlicedScene;
         previousObject?.QueueFree();
 
-        if (SlicedKitchenObjectScene is null)
+        if (slicedScene is null)
         {
           return;
         }
 
-        var slicedObject = SlicedKitchenObjectScene.Instantiate<KitchenObject>();
-        slicedObject.Type = output.Type;
+        var slicedObject = slicedScene.Instantiate<KitchenObject>();
         Carry(slicedObject);
       });
   }
@@ -71,6 +68,15 @@ public partial class CuttingCounter : Counter
   {
     _interactingPlayer = player;
     CuttingCounterLogic.Input(new CuttingCounterLogicState.Input.Interact(
+      player.HasKitchenObject(),
+      player.GetKitchenObject()?.Type ?? KitchenObjectType.None
+    ));
+  }
+
+  public override void InteractAlternate(IPlayer player)
+  {
+    _interactingPlayer = player;
+    CuttingCounterLogic.Input(new CuttingCounterLogicState.Input.InteractAlternate(
       player.HasKitchenObject(),
       player.GetKitchenObject()?.Type ?? KitchenObjectType.None
     ));

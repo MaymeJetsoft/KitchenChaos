@@ -9,11 +9,13 @@ KitchenChaos_CuttingCounterLogicState_Cutting --> KitchenChaos_CuttingCounterLog
 KitchenChaos_CuttingCounterLogicState_Cutting --> KitchenChaos_CuttingCounterLogicState_Occupied : PhysicsTick
 KitchenChaos_CuttingCounterLogicState_Empty --> KitchenChaos_CuttingCounterLogicState_Empty : Interact
 KitchenChaos_CuttingCounterLogicState_Empty --> KitchenChaos_CuttingCounterLogicState_Occupied : Interact
-KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Cutting : Interact
+KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Cutting : InteractAlternate
 KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Empty : Interact
 KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Occupied : Interact
+KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Occupied : InteractAlternate
 
 KitchenChaos_CuttingCounterLogicState_Cutting : OnPhysicsTick → ItemCut, ProgressChanged
 KitchenChaos_CuttingCounterLogicState_Empty : OnInteract → InteractionRejected, PlaceRequested
-KitchenChaos_CuttingCounterLogicState_Occupied : OnInteract → CuttingStarted, InteractionRejected, TakeRequested
+KitchenChaos_CuttingCounterLogicState_Occupied : OnInteract → InteractionRejected, TakeRequested
+KitchenChaos_CuttingCounterLogicState_Occupied : OnInteractAlternate → CuttingStarted, InteractionRejected
 @enduml

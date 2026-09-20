@@ -28,9 +28,10 @@ public partial record CuttingCounterLogicState : LogicBlockState
 
   [Meta, Id("cutting_counter_logic_state_occupied")]
   public partial record Occupied : CuttingCounterLogicState,
+    IGet<Input.InteractAlternate>,
     IGet<Input.Interact>
   {
-    public Type On(in Input.Interact input)
+    public Type On(in Input.InteractAlternate input)
     {
       if (input.PlayerHasKitchenObject)
       {
@@ -41,14 +42,33 @@ public partial record CuttingCounterLogicState : LogicBlockState
       var data = Get<CuttingCounterLogic.Data>();
       if (!CuttingRecipes.TryGet(data.CurrentType, out _, out var duration))
       {
-        Output(new Output.TakeRequested());
-        return To<Empty>();
+        Output(new Output.InteractionRejected());
+        return ToSelf();
       }
 
       data.Elapsed = 0.0;
       data.Duration = duration;
       Output(new Output.CuttingStarted(data.CurrentType, duration));
       return To<Cutting>();
+    }
+
+    public Type On(in Input.Interact input)
+    {
+      if (input.PlayerHasKitchenObject)
+      {
+        Output(new Output.InteractionRejected());
+        return ToSelf();
+      }
+
+      var data = Get<CuttingCounterLogic.Data>();
+      if (data.CurrentType.ToString().EndsWith("Sliced", StringComparison.Ordinal))
+      {
+        Output(new Output.TakeRequested());
+        return To<Empty>();
+      }
+
+      Output(new Output.InteractionRejected());
+      return ToSelf();
     }
   }
 
@@ -73,7 +93,6 @@ public partial record CuttingCounterLogicState : LogicBlockState
       return To<Occupied>();
     }
   }
-
   public static class Input
   {
     public readonly record struct Interact(
@@ -81,6 +100,10 @@ public partial record CuttingCounterLogicState : LogicBlockState
       KitchenObjectType PlayerKitchenObjectType
     );
 
+    public readonly record struct InteractAlternate(
+      bool PlayerHasKitchenObject,
+      KitchenObjectType PlayerKitchenObjectType
+    );
     public readonly record struct PhysicsTick(double Delta);
   }
 

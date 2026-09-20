@@ -1,7 +1,6 @@
 namespace KitchenChaos;
 
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks;
 
 public interface ICuttingCounterLogic : ICounterLogic;
 
@@ -20,5 +19,7 @@ public partial class CuttingCounterLogic : CounterLogic, ICuttingCounterLogic
   {
     Set(new Data());
     Set(new CuttingCounterLogicState.Empty());
+    Set(new CuttingCounterLogicState.Occupied());
+    Set(new CuttingCounterLogicState.Cutting());
   }
 }

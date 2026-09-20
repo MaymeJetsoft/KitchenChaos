@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cl2t5nrsgjesm"]
+
+[ext_resource type="Script" uid="uid://cu6qjsgdk1m0p" path="res://src/counters/cutting_counter/CuttingCounter.cs" id="1_30b6n"]
+[ext_resource type="PackedScene" uid="uid://c26ow4i1b7xht" path="res://src/counters/visuals/Kitchen Counter.fbx" id="2_mn8bi"]
+[ext_resource type="Material" uid="uid://csh48c3mfiso5" path="res://src/counters/visuals/CounterMaterial.tres" id="3_2ko1n"]
+[ext_resource type="Material" uid="uid://cxbdkvfkmb1tf" path="res://src/counters/visuals/CounterHighlight.tres" id="4_dtv2f"]
+[ext_resource type="PackedScene" uid="uid://c0ged4hdpu1pi" path="res://src/counters/cutting_counter/visuals/Chopping Board.fbx" id="5_2a1f3"]
+[ext_resource type="PackedScene" uid="uid://b07g3amljv5jv" path="res://src/counters/cutting_counter/visuals/Knife.fbx" id="6_30b6n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tg3de"]
+size = Vector3(0.91700745, 0.8654785, 0.8981018)
+
+[sub_resource type="Animation" id="Animation_fqgqk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KitchenCounterVisual/Counter:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_5uxfi"]
+resource_name = "highlight"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KitchenCounterVisual/Counter:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_2ko1n"), ExtResource("4_dtv2f")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7l4a"]
+_data = {
+&"RESET": SubResource("Animation_fqgqk"),
+&"highlight": SubResource("Animation_5uxfi")
+}
+
+[node name="CuttingCounter" type="StaticBody3D" unique_id=532112847]
+collision_layer = 19
+script = ExtResource("1_30b6n")
+IsInteractableAlternate = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=105713285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2411346e-05, 0.4167999, 0.015274048)
+shape = SubResource("BoxShape3D_tg3de")
+metadata/_edit_lock_ = true
+
+[node name="KitchenCounterVisual" parent="." unique_id=477952018 instance=ExtResource("2_mn8bi")]
+metadata/_edit_lock_ = true
+
+[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=343670403]
+surface_material_override/0 = ExtResource("3_2ko1n")
+
+[node name="Knife" parent="KitchenCounterVisual" unique_id=447344803 instance=ExtResource("6_30b6n")]
+transform = Transform3D(0.5761522, -0.16776149, -0.7999404, 0.07368826, 0.985385, -0.153579, 0.8140139, 0.029538661, 0.5800938, -0.3303951, 0.854025, 0.2802548)
+
+[node name="Chopping Board" parent="KitchenCounterVisual" unique_id=1829806078 instance=ExtResource("5_2a1f3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006821826, 0.864619, 0.0039946735)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=643685594]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_i7l4a")
+
+[node name="CarryingPosition" type="Marker3D" parent="." unique_id=1439491032]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8645732, 0)
+metadata/_edit_lock_ = true
+
+[editable path="KitchenCounterVisual"]

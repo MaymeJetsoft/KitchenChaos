@@ -34,4 +34,6 @@ public partial class KitchenObject : StaticBody3D, IKitchenObject
 
   [Export]
   public KitchenObjectType Type { get; set; } = KitchenObjectType.None;
+  [Export]
+  public PackedScene? KitchenObjectSlicedScene { get; set; }
 }

@@ -244,15 +244,11 @@ IProvide<PlayerLogic.Settings>
       {
         PlayerLogic.Input(new PlayerLogicState.Input.InteractionStarted(counter));
       }
+      else if (counter.CanInteractAlternate() && Input.IsActionJustPressed("interact_alternate"))
+      {
+        PlayerLogic.Input(new PlayerLogicState.Input.InteractionAlternateStarted(counter));
+      }
     }
-
-    // var jumpPressed = Input.IsActionPressed(GameInputs.Jump);
-    // var jumpJustPressed = Input.IsActionJustPressed(GameInputs.Jump);
-
-    // if (ShouldJump(jumpPressed, jumpJustPressed))
-    // {
-    //   PlayerLogic.Input(new PlayerLogicState.Input.Jump(delta));
-    // }
 
     MoveAndSlide();
 

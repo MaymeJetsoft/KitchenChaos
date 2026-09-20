@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://pgdkg23eolrr"]
 
 [ext_resource type="Script" uid="uid://jdopgbswa6hx" path="res://src/kitchen_objects/tomato/Tomato.cs" id="1_mqaoo"]
+[ext_resource type="PackedScene" uid="uid://bkvqdyc22ngl7" path="res://src/kitchen_objects/cheese_sliced/CheeseSliced.tscn" id="2_6uv84"]
 [ext_resource type="PackedScene" uid="uid://bn25ih15e6d10" path="res://src/kitchen_objects/cheese_block/visuals/Cheese block.fbx" id="2_8l2sw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tg3de"]
@@ -8,6 +9,8 @@ size = Vector3(0.27085114, 0.09222412, 0.1800232)
 
 [node name="CheeseBlock" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_mqaoo")
+Type = 7
+KitchenObjectSlicedScene = ExtResource("2_6uv84")
 
 [node name="Cheese block" parent="." unique_id=399059011 instance=ExtResource("2_8l2sw")]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)

@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dquvtrwmrymmu" path="res://src/kitchen_objects/cabbage/Cabbage.cs" id="1_ey1hj"]
 [ext_resource type="PackedScene" uid="uid://bnvi2k86tcau6" path="res://src/kitchen_objects/cabbage/visuals/Cabbage.fbx" id="2_aqa58"]
+[ext_resource type="PackedScene" uid="uid://clwst0rqje0dp" path="res://src/kitchen_objects/cabbage_sliced/CabbageSliced.tscn" id="2_nem4y"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
 radius = 0.16394585
 
 [node name="Cabbage" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_ey1hj")
+Type = 2
+KitchenObjectSlicedScene = ExtResource("2_nem4y")
 
 [node name="CabbageVisual" parent="." unique_id=1062983998 instance=ExtResource("2_aqa58")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://clwst0rqje0dp"]
+
+[ext_resource type="Script" uid="uid://dv8p58f3obet6" path="res://src/kitchen_objects/cabbage_sliced/CabbageSliced.cs" id="1_4o7wo"]
+[ext_resource type="PackedScene" uid="uid://bep0gp72e7od8" path="res://src/kitchen_objects/cabbage_sliced/visuals/Cabbage slice_shaped.fbx" id="2_h1wxp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iu4co"]
+size = Vector3(0.15557861, 0.014465332, 0.1885376)
+
+[node name="CabbageSliced" type="StaticBody3D" unique_id=923302616]
+script = ExtResource("1_4o7wo")
+Type = 3
+
+[node name="Cabbage slice_shaped" parent="." unique_id=522150346 instance=ExtResource("2_h1wxp")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004508972, -0.0019818842, -0.010192871)
+shape = SubResource("BoxShape3D_iu4co")

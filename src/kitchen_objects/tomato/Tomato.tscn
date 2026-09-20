@@ -2,12 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://nfnhybfs4g2k" path="res://src/kitchen_objects/tomato/visuals/Tomato.fbx" id="1_ep3nl"]
 [ext_resource type="Script" uid="uid://jdopgbswa6hx" path="res://src/kitchen_objects/tomato/Tomato.cs" id="1_mqaoo"]
+[ext_resource type="PackedScene" uid="uid://cch876f2qiw6v" path="res://src/kitchen_objects/tomato_sliced/TomatoSliced.tscn" id="2_42udv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tg3de"]
 radius = 0.14438242
 
 [node name="Tomato" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_mqaoo")
+Type = 9
+KitchenObjectSlicedScene = ExtResource("2_42udv")
 
 [node name="TomatoVisual" parent="." unique_id=1062983998 instance=ExtResource("1_ep3nl")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

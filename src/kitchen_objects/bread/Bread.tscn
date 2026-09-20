@@ -9,6 +9,7 @@ radius = 0.21431315
 
 [node name="Bread" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_mqaoo")
+Type = 1
 
 [node name="BreadVisual" parent="." unique_id=1062983998 instance=ExtResource("1_ep3nl")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

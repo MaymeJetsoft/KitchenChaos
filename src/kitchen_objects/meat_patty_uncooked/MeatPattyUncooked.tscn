@@ -8,6 +8,7 @@ size = Vector3(0.44786072, 0.068603516, 0.43154907)
 
 [node name="MeatPattyUncooked" type="StaticBody3D" unique_id=923302616]
 script = ExtResource("1_c72pg")
+Type = 4
 
 [node name="CabbageVisual" parent="." unique_id=1062983998 instance=ExtResource("2_7vdtk")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

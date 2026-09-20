@@ -9,7 +9,7 @@
 albedo_texture = ExtResource("3_dxcn3")
 
 [node name="ContainerCounter" unique_id=812667382 instance=ExtResource("1_w4jfm")]
-GeneratedType = 4
+GeneratedType = 7
 KitchenObjectScene = ExtResource("2_w4jfm")
 
 [node name="Counter" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="0" unique_id=343670403]

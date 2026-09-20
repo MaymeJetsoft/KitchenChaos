@@ -30,9 +30,6 @@ public interface IGameRepo : IDisposable
   /// <summary>Current counter the player is facing.</summary>
   IAutoValue<ICounter?> FacingCounter { get; }
 
-  // /// <summary>Current counter the player is interacting with.</summary>
-  // IAutoValue<ICounter> PlayerJustInteracted { get; }
-
   /// <summary>Inform the game that the game ended.</summary>
   /// <param name="reason">Game over reason.</param>
   void OnGameEnded(GameOverReason reason);
@@ -42,9 +39,6 @@ public interface IGameRepo : IDisposable
 
   /// <summary>Resumes the game and recaptures the mouse.</summary>
   void Resume();
-
-  // /// <summary>Tells the game that the player jumped.</summary>
-  // void OnJump();
 
   /// <summary>Changes whether the mouse is captured or not.</summary>
   /// <param name="isMouseCaptured">
