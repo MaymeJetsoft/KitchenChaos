@@ -40,7 +40,7 @@ public partial record CuttingCounterLogicState : LogicBlockState
       }
 
       var data = Get<CuttingCounterLogic.Data>();
-      if (!CuttingRecipes.TryGet(data.CurrentType, out _, out var duration))
+      if (Get<ICounter>() is not CuttingCounter cuttingCounter || !cuttingCounter.TryGetRecipe(data.CurrentType, out _, out var duration))
       {
         Output(new Output.InteractionRejected());
         return ToSelf();
@@ -87,7 +87,13 @@ public partial record CuttingCounterLogicState : LogicBlockState
         return ToSelf();
       }
 
-      CuttingRecipes.TryGet(data.CurrentType, out var outputType, out _);
+      var cuttingCounter = Get<ICounter>() as CuttingCounter;
+      var outputType = KitchenObjectType.None;
+      if (cuttingCounter is not null)
+      {
+        cuttingCounter.TryGetRecipe(data.CurrentType, out outputType, out _);
+      }
+
       data.CurrentType = outputType;
       Output(new Output.ItemCut(outputType));
       return To<Occupied>();

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="KitchenObjectToSlices" format=3 uid="uid://c08tl5g5st64y"]
+
+[ext_resource type="PackedScene" uid="uid://ij5lfaybcvrq" path="res://src/kitchen_objects/cabbage/Cabbage.tscn" id="1_vcnj1"]
+[ext_resource type="Script" uid="uid://hwq80fkymhl8" path="res://src/cutting_recipes/KitchenObjectToSlices.cs" id="1_wjocm"]
+[ext_resource type="PackedScene" uid="uid://clwst0rqje0dp" path="res://src/kitchen_objects/cabbage_sliced/CabbageSliced.tscn" id="2_qpid0"]
+
+[resource]
+script = ExtResource("1_wjocm")
+Input = ExtResource("1_vcnj1")
+Output = ExtResource("2_qpid0")
+metadata/_custom_type_script = "uid://hwq80fkymhl8"

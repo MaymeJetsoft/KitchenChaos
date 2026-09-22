@@ -7,6 +7,9 @@ using Godot;
 [Meta(typeof(IAutoNode))]
 public partial class CuttingCounter : Counter
 {
+  [Export]
+  public Godot.Collections.Array<KitchenObjectToSlices> KitchenObjectToSlices { get; set; } = default!;
+
   public ICuttingCounterLogic CuttingCounterLogic { get; set; } = default!;
   private IPlayer? _interactingPlayer;
 
@@ -80,5 +83,51 @@ public partial class CuttingCounter : Counter
       player.HasKitchenObject(),
       player.GetKitchenObject()?.Type ?? KitchenObjectType.None
     ));
+  }
+
+  public bool TryGetRecipe(
+      KitchenObjectType inputType,
+      out KitchenObjectType outputType,
+      out double duration
+    )
+  {
+    foreach (var recipe in KitchenObjectToSlices)
+    {
+      if (recipe is null)
+      {
+        continue;
+      }
+
+      var inputObject = recipe.Input?.Instantiate<KitchenObject>();
+      if (inputObject is null)
+      {
+        continue;
+      }
+
+      var isMatch = inputObject.Type == inputType;
+      inputObject.QueueFree();
+
+      if (!isMatch)
+      {
+        continue;
+      }
+
+      var outputObject = recipe.Output?.Instantiate<KitchenObject>();
+      if (outputObject is null)
+      {
+        outputType = KitchenObjectType.None;
+        duration = 0.0;
+        return false;
+      }
+
+      outputType = outputObject.Type;
+      duration = recipe.Duration;
+      outputObject.QueueFree();
+      return true;
+    }
+
+    outputType = KitchenObjectType.None;
+    duration = 0.0;
+    return false;
   }
 }
