@@ -12,7 +12,7 @@ albedo_texture = ExtResource("3_dxcn3")
 GeneratedType = 7
 KitchenObjectScene = ExtResource("2_w4jfm")
 
-[node name="Counter" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="0" unique_id=343670403]
+[node name="Counter" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="0" unique_id=1360938277]
 surface_material_override/0 = SubResource("StandardMaterial3D_5lli5")
 
 [node name="TopLogo" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="1" unique_id=1468995226]

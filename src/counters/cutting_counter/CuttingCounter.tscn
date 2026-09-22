@@ -60,7 +60,7 @@ metadata/_edit_lock_ = true
 [node name="KitchenCounterVisual" parent="." unique_id=477952018 instance=ExtResource("2_mn8bi")]
 metadata/_edit_lock_ = true
 
-[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=343670403]
+[node name="Counter" parent="KitchenCounterVisual" index="0" unique_id=1360938277]
 surface_material_override/0 = ExtResource("3_2ko1n")
 
 [node name="Knife" parent="KitchenCounterVisual" unique_id=447344803 instance=ExtResource("6_30b6n")]
