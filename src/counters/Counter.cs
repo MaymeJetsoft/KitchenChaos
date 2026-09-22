@@ -108,7 +108,7 @@ public partial class Counter : StaticBody3D, ICounter
 
   public virtual void OnResolved()
   {
-    CounterLogic.Set(this);
+    CounterLogic.Set(this as ICounter);
     CounterLogic.Set(GameRepo);
 
     CounterBinding = CounterLogic.Bind();
