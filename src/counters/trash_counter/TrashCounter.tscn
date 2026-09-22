@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://bdpjear8fpjjd"]
+
+[ext_resource type="Script" uid="uid://fwc0k4m7t0vl" path="res://src/counters/trash_counter/TrashCounter.cs" id="1_dyp8f"]
+[ext_resource type="ArrayMesh" uid="uid://pcxj2dn1fgna" path="res://src/counters/trash_counter/visuals/trash_bin_mesh.tres" id="2_vli2v"]
+[ext_resource type="Material" uid="uid://ecjd4lm5e5mv" path="res://src/counters/trash_counter/visuals/Trash bin.tres" id="3_ym155"]
+[ext_resource type="Material" uid="uid://bvbgxborb57sp" path="res://src/counters/trash_counter/visuals/trash_bin_highlight.tres" id="4_u7o5p"]
+[ext_resource type="Material" uid="uid://b1psapxmg8ohu" path="res://src/player/visuals/materials/heart_core_mat.tres" id="5_u7o5p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tg3de"]
+size = Vector3(0.7924042, 0.75720215, 0.80929184)
+
+[sub_resource type="Animation" id="Animation_fqgqk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrashCounterVisual/Counter:surface_material_override/0")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ym155"]
+resource_name = "destroying"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5uxfi"]
+resource_name = "highlight"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrashCounterVisual/Counter:surface_material_override/0")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_ym155"), ExtResource("4_u7o5p")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_shliv"]
+_data = {
+&"RESET": SubResource("Animation_fqgqk"),
+&"destroying": SubResource("Animation_ym155"),
+&"highlight": SubResource("Animation_5uxfi")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_u7o5p"]
+material = ExtResource("5_u7o5p")
+radius = 0.04
+height = 0.08
+
+[node name="TrashCounter" type="StaticBody3D" unique_id=622850441]
+collision_layer = 19
+script = ExtResource("1_dyp8f")
+
+[node name="TrashCounterVisual" type="Node3D" parent="." unique_id=1036627971]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="Counter" type="MeshInstance3D" parent="TrashCounterVisual" unique_id=2113549367]
+mesh = ExtResource("2_vli2v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1184032268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.007255554, 0.35369873, -0.008321762)
+shape = SubResource("BoxShape3D_tg3de")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=444184489]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_shliv")
+
+[node name="CarryingPosition" type="Marker3D" parent="." unique_id=1156701279]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21143043, 0)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=1094220382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043851495, 0.0897311, -0.050795257)
+emitting = false
+amount = 64
+one_shot = true
+visibility_aabb = AABB(-0.2, 0, -0.2, 0.5, 1, 0.5)
+mesh = SubResource("SphereMesh_u7o5p")
+spread = 10.0
+gravity = Vector3(0, 1.5, 0)
+initial_velocity_max = 0.3

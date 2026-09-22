@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bvbgxborb57sp"]
+
+[ext_resource type="Texture2D" uid="uid://d06bpaesm3dbx" path="res://src/counters/trash_counter/visuals/Trash bin_AlbedoTransparency.png" id="1_3vuhq"]
+
+[resource]
+resource_name = "Trash bin"
+vertex_color_use_as_albedo = true
+albedo_color = Color(3.2944162, 3.2944162, 3.2944162, 1)
+albedo_texture = ExtResource("1_3vuhq")
+emission_enabled = true

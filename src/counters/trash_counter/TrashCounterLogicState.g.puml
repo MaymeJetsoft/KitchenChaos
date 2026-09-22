@@ -1,0 +1,9 @@
+@startuml TrashCounterLogicState
+state "TrashCounterLogicState" as KitchenChaos_TrashCounterLogicState {
+  state "Empty" as KitchenChaos_TrashCounterLogicState_Empty
+}
+
+KitchenChaos_TrashCounterLogicState_Empty --> KitchenChaos_TrashCounterLogicState_Empty : Interact
+
+KitchenChaos_TrashCounterLogicState_Empty : OnInteract → InteractionRejected, PlaceRequested
+@enduml

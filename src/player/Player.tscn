@@ -28,7 +28,7 @@ unique_name_in_owner = true
 
 [node name="CounterRayCast3D" type="RayCast3D" parent="FollowVisualRotation" unique_id=1951478955]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988854, 0)
 target_position = Vector3(0, 0, 1)
 collision_mask = 16
 debug_shape_custom_color = Color(18.892157, 0, 0, 1)
