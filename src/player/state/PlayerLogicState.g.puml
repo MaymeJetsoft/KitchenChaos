@@ -25,7 +25,11 @@ KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Interacting
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_InteractingAlternate : InteractionAlternateStarted
 KitchenChaos_PlayerLogicState_Idle --> KitchenChaos_PlayerLogicState_Moving : StartedMovingHorizontally
 KitchenChaos_PlayerLogicState_Interacting --> KitchenChaos_PlayerLogicState_Idle : InteractionCompleted
+KitchenChaos_PlayerLogicState_Interacting --> KitchenChaos_PlayerLogicState_Idle : PhysicsTick
+KitchenChaos_PlayerLogicState_Interacting --> KitchenChaos_PlayerLogicState_Interacting : PhysicsTick
 KitchenChaos_PlayerLogicState_InteractingAlternate --> KitchenChaos_PlayerLogicState_Idle : InteractionAlternateCompleted
+KitchenChaos_PlayerLogicState_InteractingAlternate --> KitchenChaos_PlayerLogicState_Idle : PhysicsTick
+KitchenChaos_PlayerLogicState_InteractingAlternate --> KitchenChaos_PlayerLogicState_InteractingAlternate : PhysicsTick
 KitchenChaos_PlayerLogicState_Moving --> KitchenChaos_PlayerLogicState_Idle : StoppedMovingHorizontally
 KitchenChaos_PlayerLogicState_PickingUp --> KitchenChaos_PlayerLogicState_Idle : PickUpCompleted
 
@@ -33,6 +37,8 @@ KitchenChaos_PlayerLogicState_Alive : OnPhysicsTick → MovementComputed
 KitchenChaos_PlayerLogicState_Alive : OnPushed → VelocityChanged
 KitchenChaos_PlayerLogicState_Disabled : OnEnter → Idle
 KitchenChaos_PlayerLogicState_Idle : OnEnter → Idle
+KitchenChaos_PlayerLogicState_Interacting : OnPhysicsTick → VelocityChanged
+KitchenChaos_PlayerLogicState_InteractingAlternate : OnPhysicsTick → VelocityChanged
 KitchenChaos_PlayerLogicState_Moving : OnEnter → Move
 KitchenChaos_PlayerLogicState_PickingUp : OnEnter → KitchenObjectChanged
 @enduml

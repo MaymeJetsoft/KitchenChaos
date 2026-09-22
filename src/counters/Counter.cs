@@ -8,6 +8,8 @@ using Godot;
 
 public interface ICounter : IStaticBody3D, IBearable
 {
+  bool IsPlayerMovementBlocked { get; }
+
   bool CanInteract();
   bool CanInteractAlternate();
   void Interact(IPlayer player);
@@ -28,6 +30,9 @@ public partial class Counter : StaticBody3D, ICounter
 
   [Export]
   public bool IsInteractableAlternate { get; set; } = false;
+
+  [Export]
+  public virtual bool IsPlayerMovementBlocked { get; set; } = false;
 
   #endregion Properties
 

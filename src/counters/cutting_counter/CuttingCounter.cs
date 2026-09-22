@@ -53,12 +53,14 @@ public partial class CuttingCounter : Counter
       })
       .OnOutput((in CuttingCounterLogicState.Output.CuttingStarted output) =>
       {
+        IsPlayerMovementBlocked = true;
         ResetProgressBar();
         ProgressBar.Visible = true;
       })
       .OnOutput((in CuttingCounterLogicState.Output.CuttingProgressed output) => ProgressBar.Value = output.Value)
       .OnOutput((in CuttingCounterLogicState.Output.ItemCut output) =>
       {
+        IsPlayerMovementBlocked = false;
         ResetProgressBar();
 
         var previousObject = Take();

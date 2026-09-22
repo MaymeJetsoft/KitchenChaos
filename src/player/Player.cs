@@ -215,8 +215,6 @@ IProvide<PlayerLogic.Settings>
 
   public void OnPhysicsProcess(double delta)
   {
-    PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
-
     // Raycast to check if the player is standing in front of a counter
     var counter = GetFacingCounter();
     PlayerLogic.Input(new PlayerLogicState.Input.FacingCounterChanged(counter));
@@ -232,6 +230,8 @@ IProvide<PlayerLogic.Settings>
         PlayerLogic.Input(new PlayerLogicState.Input.InteractionAlternateStarted(counter));
       }
     }
+
+    PlayerLogic.Input(new PlayerLogicState.Input.PhysicsTick(delta));
 
     MoveAndSlide();
 
