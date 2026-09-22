@@ -14,7 +14,7 @@ KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLo
 KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Occupied : Interact
 KitchenChaos_CuttingCounterLogicState_Occupied --> KitchenChaos_CuttingCounterLogicState_Occupied : InteractAlternate
 
-KitchenChaos_CuttingCounterLogicState_Cutting : OnPhysicsTick → ItemCut, ProgressChanged
+KitchenChaos_CuttingCounterLogicState_Cutting : OnPhysicsTick → CuttingProgressed, ItemCut, ProgressChanged
 KitchenChaos_CuttingCounterLogicState_Empty : OnInteract → InteractionRejected, PlaceRequested
 KitchenChaos_CuttingCounterLogicState_Occupied : OnInteract → InteractionRejected, TakeRequested
 KitchenChaos_CuttingCounterLogicState_Occupied : OnInteractAlternate → CuttingStarted, InteractionRejected

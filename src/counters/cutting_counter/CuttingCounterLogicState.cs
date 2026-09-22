@@ -84,6 +84,7 @@ public partial record CuttingCounterLogicState : LogicBlockState
 
       if (data.Elapsed < data.Duration)
       {
+        Output(new Output.CuttingProgressed(data.Elapsed / data.Duration * 100f));
         return ToSelf();
       }
 
@@ -121,6 +122,7 @@ public partial record CuttingCounterLogicState : LogicBlockState
       KitchenObjectType Type,
       double Duration
     );
+    public readonly record struct CuttingProgressed(double Value);
     public readonly record struct ProgressChanged(double Progress);
     public readonly record struct ItemCut(KitchenObjectType Type);
     public readonly record struct InteractionRejected;

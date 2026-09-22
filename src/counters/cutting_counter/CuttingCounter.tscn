@@ -47,6 +47,26 @@ _data = {
 &"highlight": SubResource("Animation_5uxfi")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj44v"]
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1w55q"]
+bg_color = Color(0.6248941, 0.6573071, 0.12722686, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tg3de"]
+viewport_path = NodePath("ProgressBarSubViewport")
+
 [node name="CuttingCounter" type="StaticBody3D" unique_id=532112847]
 collision_layer = 19
 script = ExtResource("1_30b6n")
@@ -76,5 +96,27 @@ libraries/ = SubResource("AnimationLibrary_i7l4a")
 [node name="CarryingPosition" type="Marker3D" parent="." unique_id=1439491032]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8824087, 0)
+
+[node name="ProgressBarSubViewport" type="SubViewport" parent="." unique_id=695202622]
+transparent_bg = true
+size = Vector2i(200, 50)
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressBarSubViewport" unique_id=1163485367]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_mj44v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1w55q")
+show_percentage = false
+
+[node name="ProgressBarSprite" type="Sprite3D" parent="." unique_id=125128998]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.5, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_tg3de")
 
 [editable path="KitchenCounterVisual"]

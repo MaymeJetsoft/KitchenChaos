@@ -1,6 +1,7 @@
 namespace KitchenChaos;
 
 using Chickensoft.AutoInject;
+using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
 using Godot;
 
@@ -9,6 +10,9 @@ public partial class CuttingCounter : Counter
 {
   [Export]
   public Godot.Collections.Array<KitchenObjectToSlices> KitchenObjectToSlices { get; set; } = default!;
+
+  [Node]
+  public IProgressBar ProgressBar { get; set; } = default!;
 
   public ICuttingCounterLogic CuttingCounterLogic { get; set; } = default!;
   private IPlayer? _interactingPlayer;
@@ -20,8 +24,11 @@ public partial class CuttingCounter : Counter
     CounterLogic = CuttingCounterLogic;
   }
 
-  protected override void StartCounterLogic() =>
+  protected override void StartCounterLogic()
+  {
     CounterLogic.Start<CuttingCounterLogicState.Empty>();
+    ResetProgressBar();
+  }
 
   protected override void BindCounterOutputs()
   {
@@ -44,8 +51,16 @@ public partial class CuttingCounter : Counter
           _interactingPlayer?.Carry(kitchenObject);
         }
       })
+      .OnOutput((in CuttingCounterLogicState.Output.CuttingStarted output) =>
+      {
+        ResetProgressBar();
+        ProgressBar.Visible = true;
+      })
+      .OnOutput((in CuttingCounterLogicState.Output.CuttingProgressed output) => ProgressBar.Value = output.Value)
       .OnOutput((in CuttingCounterLogicState.Output.ItemCut output) =>
       {
+        ResetProgressBar();
+
         var previousObject = Take();
         var slicedScene = previousObject?.KitchenObjectSlicedScene;
         previousObject?.QueueFree();
@@ -129,5 +144,11 @@ public partial class CuttingCounter : Counter
     outputType = KitchenObjectType.None;
     duration = 0.0;
     return false;
+  }
+
+  public void ResetProgressBar()
+  {
+    ProgressBar.Visible = false;
+    ProgressBar.Value = 0;
   }
 }
