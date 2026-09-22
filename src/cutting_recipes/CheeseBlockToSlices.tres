@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="KitchenObjectToSlices" format=3 uid="uid://b1vuaruokfrio"]
+
+[ext_resource type="PackedScene" uid="uid://pgdkg23eolrr" path="res://src/kitchen_objects/cheese_block/CheeseBlock.tscn" id="1_8oecp"]
+[ext_resource type="Script" uid="uid://hwq80fkymhl8" path="res://src/cutting_recipes/KitchenObjectToSlices.cs" id="1_coj1t"]
+[ext_resource type="PackedScene" uid="uid://bkvqdyc22ngl7" path="res://src/kitchen_objects/cheese_sliced/CheeseSliced.tscn" id="2_pcmc0"]
+
+[resource]
+script = ExtResource("1_coj1t")
+Input = ExtResource("1_8oecp")
+Output = ExtResource("2_pcmc0")
+metadata/_custom_type_script = "uid://hwq80fkymhl8"

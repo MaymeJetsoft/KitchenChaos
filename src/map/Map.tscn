@@ -14,8 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://ci78q7ikl26fh" path="res://src/counters/Counter.tscn" id="12_caf7v"]
 [ext_resource type="PackedScene" uid="uid://cl2t5nrsgjesm" path="res://src/counters/cutting_counter/CuttingCounter.tscn" id="12_xcm54"]
 [ext_resource type="PackedScene" uid="uid://d4fqsmje3dmwk" path="res://src/counters/container_counter/TomatoContainerCounter.tscn" id="13_container"]
-[ext_resource type="Resource" uid="uid://c08tl5g5st64y" path="res://src/cutting_recipes/TomatoToSlices.tres" id="13_pvu0e"]
+[ext_resource type="Resource" uid="uid://c08tl5g5st64y" path="res://src/cutting_recipes/CabbageToSlices.tres" id="13_pvu0e"]
+[ext_resource type="Resource" uid="uid://b1vuaruokfrio" path="res://src/cutting_recipes/CheeseBlockToSlices.tres" id="14_5suoo"]
 [ext_resource type="PackedScene" uid="uid://rradokosbgs7" path="res://src/counters/container_counter/CheeseContainerCounter.tscn" id="14_dbqu2"]
+[ext_resource type="Resource" uid="uid://bpneqi4luyo6y" path="res://src/cutting_recipes/TomatoToSlices.tres" id="15_t2vkt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hi63v"]
 shader = ExtResource("1_ne2vg")
@@ -70,8 +72,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.08777847, 0.08777847)
-shader_parameter/cirrus_position2 = Vector2(0.08777847, 0.08777847)
+shader_parameter/cirrus_position1 = Vector2(0.06858953, 0.06858953)
+shader_parameter/cirrus_position2 = Vector2(0.06858953, 0.06858953)
 shader_parameter/cirrus_texture = ExtResource("2_abpbr")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -81,7 +83,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.43886024, 0.43886024)
+shader_parameter/cumulus_position = Vector2(0.3429398, 0.3429398)
 shader_parameter/cumulus_texture = ExtResource("3_caf7v")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -153,7 +155,7 @@ current_time = 14.0
 
 [node name="CuttingCounter" parent="World/Counters" unique_id=532112847 instance=ExtResource("12_xcm54")]
 transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1, 0, 0)
-KitchenObjectToSlices = Array[Object]([ExtResource("13_pvu0e")])
+KitchenObjectToSlices = Array[Object]([ExtResource("13_pvu0e"), ExtResource("14_5suoo"), ExtResource("15_t2vkt")])
 
 [node name="ClearCounter" parent="World/Counters" unique_id=1182774818 instance=ExtResource("12_caf7v")]
 

@@ -12,3 +12,6 @@ obj/
 
 *.old
 *.translation
+
+.github/hooks/
+.github/copilot-instructions.md
