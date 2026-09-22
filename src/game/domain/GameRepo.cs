@@ -148,14 +148,6 @@ public class GameRepo : IGameRepo
     _isPaused.Value = false;
   }
 
-  // public void OnJumpshroomUsed() => _autoChannel.Send(new IGameRepo.JumpshroomUsed());
-
-  // public void SetNumCoinsAtStart(int numCoinsAtStart) =>
-  //   _numCoinsAtStart.Value = numCoinsAtStart;
-
-  // public void SetNumCoinsCollected(int numCoinsCollected) =>
-  //   _numCoinsCollected.Value = numCoinsCollected;
-
   #region Internals
 
   protected void Dispose(bool disposing)

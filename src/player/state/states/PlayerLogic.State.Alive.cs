@@ -120,16 +120,12 @@ public partial record PlayerLogicState
       // and falling allow for horizontal movement, whereas being idle on the
       // ground is only possible while not moving horizontally.
       //
-      //         +----------------+               +----------------+
-      //   +-----|    Grounded    |----+  +-------|    Airborne    |------+
-      //   |     +----------------+    |  |       +----------------+      |
-      //   |  +------+     +--------+  |  |  +---------+     +---------+  |
-      //   +->| Idle |     | Moving |<-+  +->| Jumping |     | Falling |<-+
-      //      +------+     +--------+        +---------+     +---------+
-
-      // var justHitFloor = isOnFloor && !data.WasOnFloor;
-      // var justLeftFloor = !isOnFloor && data.WasOnFloor;
-      // var justStartedFalling = hasNegativeYVelocity && !data.HadNegativeYVelocity();
+      //         +----------------+
+      //   +-----|    Grounded    |----+
+      //   |     +----------------+    |
+      //   |  +------+     +--------+  |
+      //   +->| Idle |     | Moving |<-+
+      //      +------+     +--------+
 
       var justStartedMovingHorizontally =
         isMovingHorizontally && !data.WasMovingHorizontally(settings);
@@ -139,23 +135,6 @@ public partial record PlayerLogicState
       // Update the cached values so we can use them next frame.
       data.WasOnFloor = isOnFloor;
       data.LastVelocity = player.Velocity;
-
-      // if (justHitFloor)
-      // {
-      //   Input(
-      //     new Input.HitFloor(IsMovingHorizontally: isMovingHorizontally)
-      //   );
-      // }
-      // else if (justLeftFloor)
-      // {
-      //   Input(
-      //     new Input.LeftFloor(IsFalling: hasNegativeYVelocity)
-      //   );
-      // }
-      // else if (justStartedFalling)
-      // {
-      //   Input(new Input.StartedFalling());
-      // }
 
       // Grounded status hasn't changed. Check for changes in horizontal
       // movement.

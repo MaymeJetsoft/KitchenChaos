@@ -75,12 +75,6 @@ public partial class PlayerModel : Node3D, IPlayerModel
       .OnOutput((in PlayerLogicState.Output.Animations.Move output) =>
         AnimationStateMachine.Travel("run")
       )
-      // .OnOutput((in PlayerLogicState.Output.Animations.Jump output) =>
-      //   AnimationStateMachine.Travel("jump")
-      // )
-      // .OnOutput((in PlayerLogicState.Output.Animations.Fall output) =>
-      //   AnimationStateMachine.Travel("fall")
-      // )
       .OnOutput((in PlayerLogicState.Output.MoveSpeedChanged output) =>
         AnimationTree.Set(
           "parameters/main_animations/move/blend_position", output.Speed

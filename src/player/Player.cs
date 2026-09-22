@@ -70,11 +70,7 @@ IProvide<PlayerLogic.Settings>
     set => _bearable.CarryingPosition = value;
   }
 
-  public void Carry(KitchenObject carryingObject)
-  {
-    _bearable.Carry(carryingObject);
-  }
-
+  public void Carry(KitchenObject carryingObject) => _bearable.Carry(carryingObject);
   public KitchenObject? Take() => _bearable.Take();
   public void Drop() => _bearable.Drop();
   public bool HasKitchenObject() => _bearable.HasKitchenObject();
@@ -142,17 +138,6 @@ IProvide<PlayerLogic.Settings>
   [Export(PropertyHint.Range, "0, 100, 0.1")]
   public float Acceleration { get; set; } = 4f;
 
-  /// <summary>Jump initial impulse force.</summary>
-  [Export(PropertyHint.Range, "0, 100, 0.1")]
-  public float JumpImpulseForce { get; set; } = 12f;
-
-  /// <summary>
-  ///   Additional force added each physics tick while player is still pressing
-  ///   jump.
-  /// </summary>
-  [Export(PropertyHint.Range, "0, 100, 0.1")]
-  public float JumpForce { get; set; } = 4.5f;
-
   #endregion Exports
 
   #region State
@@ -173,9 +158,7 @@ IProvide<PlayerLogic.Settings>
       StoppingSpeed,
       Gravity,
       MoveSpeed,
-      Acceleration,
-      JumpImpulseForce,
-      JumpForce
+      Acceleration
     );
 
     PlayerLogic = new PlayerLogic();
@@ -275,9 +258,6 @@ IProvide<PlayerLogic.Settings>
 
     return null;
   }
-
-  public static bool ShouldJump(bool jumpPressed, bool jumpJustPressed) =>
-    jumpPressed || jumpJustPressed;
 
   #region IPlayer
 
