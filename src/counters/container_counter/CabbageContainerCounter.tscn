@@ -18,4 +18,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5lli5")
 [node name="TopLogo" parent="KitchenCounterVisual" parent_id_path=PackedInt32Array(1647704449) index="1" unique_id=1468995226]
 texture = ExtResource("4_r81ey")
 
+[node name="CarryingPosition" parent="." index="3" unique_id=1710027759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87, 0)
+
 [editable path="KitchenCounterVisual"]

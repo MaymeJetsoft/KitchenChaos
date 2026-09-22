@@ -7,20 +7,22 @@
 size = Vector3(0.39793396, 0.07055664, 0.37530518)
 
 [node name="TomatoSliced" type="StaticBody3D" unique_id=923302616]
+collision_layer = 7
+collision_mask = 17
 script = ExtResource("1_taeto")
 Type = 10
 
 [node name="TomatoVisual" parent="." unique_id=1062983998 instance=ExtResource("2_jc5pe")]
-transform = Transform3D(1.8, 0, 0, 0, 2, 0, 0, 0, 1.6, 0.021315962, 0, 0.049234793)
+transform = Transform3D(1.7977854, -0.0991773, 0, 0.089259565, 1.9975394, 0, 0, 0, 1.6, -0.013587844, -0.0029618703, 0.0634748)
 
 [node name="TomatoVisual2" parent="." unique_id=1184572525 instance=ExtResource("2_jc5pe")]
-transform = Transform3D(1.6512425, 0.22242232, 0.10226573, -0.23880865, 1.5460031, 0.0037058366, -0.10658326, -0.01806759, 1.5760491, 0.09284598, -0.013421968, -0.0942072)
+transform = Transform3D(1.6610531, 0.14548445, 0.101956114, -0.15663192, 1.5551304, 0.008772495, -0.10658324, -0.018067587, 1.5760489, 0.05851975, -0.012820248, -0.07996719)
 
 [node name="TomatoVisual3" parent="." unique_id=1150198581 instance=ExtResource("2_jc5pe")]
-transform = Transform3D(-1.3315574, -0.2484552, 0.7913042, -0.21437696, 1.9047794, 0.0041924445, -0.65829414, -0.11774143, -1.6019671, -0.08146703, 0.0075805485, -0.07126932)
+transform = Transform3D(-1.3192884, -0.342605, 0.7901226, -0.28014338, 1.8901157, 0.043426998, -0.6582941, -0.11774144, -1.6019671, -0.1166203, -0.00048751757, -0.057029314)
 
 [node name="TomatoVisual4" parent="." unique_id=1737267358 instance=ExtResource("2_jc5pe")]
-transform = Transform3D(-0.3364615, -0.050982784, -1.607324, -0.047393326, 1.9840256, -0.034032572, 1.7002493, 0.045214433, -0.3190212, 0.09846057, 0.016680926, 0.055849932)
+transform = Transform3D(-0.33369744, -0.14930524, -1.603659, -0.06401969, 1.9790564, -0.113695726, 1.7002492, 0.04521443, -0.3190212, 0.06263466, 0.01752403, 0.070089936)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010398865, -0.0026837885, -0.015167236)

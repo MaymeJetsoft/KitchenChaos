@@ -8,6 +8,8 @@
 size = Vector3(0.27085114, 0.09222412, 0.1800232)
 
 [node name="CheeseBlock" type="StaticBody3D" unique_id=923302616]
+collision_layer = 7
+collision_mask = 17
 script = ExtResource("1_mqaoo")
 Type = 7
 KitchenObjectSlicedScene = ExtResource("2_6uv84")

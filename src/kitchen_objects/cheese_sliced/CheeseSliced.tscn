@@ -7,10 +7,16 @@
 size = Vector3(0.20678711, 0.016845703, 0.10864258)
 
 [node name="CheeseSliced" type="StaticBody3D" unique_id=923302616]
+collision_layer = 7
+collision_mask = 17
 script = ExtResource("1_maaek")
 Type = 8
 
 [node name="Cheese slice" parent="." unique_id=1762778347 instance=ExtResource("2_coeq6")]
+transform = Transform3D(0.9990047, 0, -0.044603936, 0, 1, 0, 0.044603936, 0, 0.9990047, 0, 0, -0.0055436045)
+
+[node name="Cheese slice2" parent="." unique_id=1008503436 instance=ExtResource("2_coeq6")]
+transform = Transform3D(-0.9999971, 0, 0.0024082735, 0, 1, 0, -0.0024082735, 0, -0.9999971, -0.0389092, 0.0049927123, 0.023192212)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=40177699]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00314942, 0.00012207031, -0.0014404356)

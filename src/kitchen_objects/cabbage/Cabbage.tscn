@@ -8,6 +8,8 @@
 radius = 0.16394585
 
 [node name="Cabbage" type="StaticBody3D" unique_id=923302616]
+collision_layer = 7
+collision_mask = 17
 script = ExtResource("1_ey1hj")
 Type = 2
 KitchenObjectSlicedScene = ExtResource("2_nem4y")

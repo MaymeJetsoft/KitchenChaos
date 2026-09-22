@@ -7,10 +7,22 @@
 size = Vector3(0.15557861, 0.014465332, 0.1885376)
 
 [node name="CabbageSliced" type="StaticBody3D" unique_id=923302616]
+collision_layer = 7
+collision_mask = 17
 script = ExtResource("1_4o7wo")
 Type = 3
 
 [node name="Cabbage slice_shaped" parent="." unique_id=522150346 instance=ExtResource("2_h1wxp")]
+transform = Transform3D(0.97279596, -0.040063996, -0.22817305, 0, 0.9849323, -0.17294033, 0.23166369, 0.16823566, 0.95813817, 0, 0, -0.03818689)
+
+[node name="Cabbage slice_shaped4" parent="." unique_id=1198971057 instance=ExtResource("2_h1wxp")]
+transform = Transform3D(-0.9443572, -0.06314801, 0.32280335, -0.10533274, 0.9877749, -0.11491744, -0.31160018, -0.14252485, -0.9394636, 0, 0, 0.01510375)
+
+[node name="Cabbage slice_shaped2" parent="." unique_id=735029120 instance=ExtResource("2_h1wxp")]
+transform = Transform3D(0.0092246225, -0.047892302, -0.9988099, -0.18891133, 0.9807822, -0.04877262, 0.98195094, 0.18913645, -5.1733732e-08, 0.02010616, -0.011573456, -0.027728856)
+
+[node name="Cabbage slice_shaped3" parent="." unique_id=521656352 instance=ExtResource("2_h1wxp")]
+transform = Transform3D(1.2337598e-07, 0.14554244, 0.989352, -6.233153e-08, 0.989352, -0.14554244, -1, -4.371138e-08, 1.3113417e-07, -0.019749701, -0.008774005, -0.027728856)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2071742127]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004508972, -0.0019818842, -0.010192871)
