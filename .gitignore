@@ -15,3 +15,5 @@ obj/
 
 .github/hooks/
 .github/copilot-instructions.md
+
+addons/*
