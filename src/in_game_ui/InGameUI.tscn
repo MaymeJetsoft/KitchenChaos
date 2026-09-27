@@ -5,7 +5,7 @@
 [sub_resource type="Environment" id="Environment_ugqbc"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ssil_enabled = true
+ssil_enabled = false
 ssil_radius = 1.19
 ssil_intensity = 3.28
 ssil_sharpness = 1.0
