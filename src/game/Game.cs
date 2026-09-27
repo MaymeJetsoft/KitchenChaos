@@ -30,15 +30,13 @@ public partial class Game : Node3D, IGame
   public GameData Save() => new()
   {
     MapData = Map.Save(),
-    PlayerData = Player.Save(),
-    PlayerCameraData = PlayerCamera.Save(),
+    PlayerData = Player.Save()
   };
 
   public void Load(in GameData data)
   {
     Map.Load(data.MapData);
     Player.Load(data.PlayerData);
-    PlayerCamera.Load(data.PlayerCameraData);
   }
 
   #endregion Save

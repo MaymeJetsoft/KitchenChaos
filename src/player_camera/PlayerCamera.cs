@@ -3,8 +3,6 @@ namespace KitchenChaos;
 using Chickensoft.AutoInject;
 using Chickensoft.GodotNodeInterfaces;
 using Chickensoft.Introspection;
-using Chickensoft.LogicBlocks;
-using Chickensoft.SaveFileBuilder;
 using Godot;
 
 /// <summary>
@@ -13,45 +11,9 @@ using Godot;
 ///   to know about its implementation. This interface can easily be mocked,
 ///   allowing the camera logic block to be unit-tested.
 /// </summary>
-public interface IPlayerCamera : INode3D, ISaveable<PlayerCameraData>
+public interface IPlayerCamera : INode3D
 {
-  IPlayerCameraLogic CameraLogic { get; }
-
-  /// <summary>
-  ///   Camera system's overall offset that doesn't change during
-  ///   runtime. The camera's position is determined by the target offset
-  ///   (usually the player's global position) added to this.
-  /// </summary>
-  Vector3 Offset { get; }
-
-  /// <summary>
-  ///   The local position of the spring arm target node (it's
-  ///   the node that is a child of the spring arm so it moves wherever the
-  ///   spring arm says it should). We don't just directly make the camera a child
-  ///   of the spring arm because we actually want to smooth the spring arm
-  ///   changes via lerping. There's going to be some clipping, but we're okay
-  ///   with that for an improved feel.
-  /// </summary>
-  Vector3 SpringArmTargetPosition { get; }
-
-  /// <summary>Camera's local position within the camera system.</summary>
-  Vector3 CameraLocalPosition { get; }
-
-  /// <summary>Horizontal gimbal rotation in euler angles.</summary>
-  Vector3 GimbalRotationHorizontal { get; }
-
-  /// <summary>Vertical gimbal rotation in euler angles.</summary>
-  Vector3 GimbalRotationVertical { get; }
-
-  /// <summary>Camera's global transform basis.</summary>
   Basis CameraBasis { get; }
-
-  /// <summary>
-  ///   Local position of the offset node that is a parent of the camera.
-  ///   Changing this allows us to offset the camera side to side when strafing
-  ///   so that you can see  where you're going.
-  /// </summary>
-  Vector3 OffsetPosition { get; }
 
   /// <summary>Sets the current camera to the player camera.</summary>
   void UsePlayerCamera();
@@ -62,41 +24,13 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 {
   public override void _Notification(int what) => this.Notify(what);
 
-  #region Save
+  private PhantomCamera.PhantomCamera3D _phantomCamera = default!;
 
-  public PlayerCameraData Save() => new()
-  {
-    StateMachine = CameraLogic.GetSaveData(),
-    GlobalTransform = GlobalTransform,
-    LocalPosition = CameraNode.Position,
-    OffsetPosition = OffsetNode.Position,
-  };
-
-  public void Load(in PlayerCameraData data)
-  {
-    CameraLogic.Stop();
-    CameraLogic.Start(data.StateMachine.Data);
-    GlobalTransform = data.GlobalTransform;
-    CameraNode.Position = data.LocalPosition;
-    OffsetNode.Position = data.OffsetPosition;
-
-    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(0d));
-  }
-
-  #endregion Save
-
-  #region State
+  #region Dependencies
   [Dependency] public IGameRepo GameRepo => this.DependOn<IGameRepo>();
-
-  public IPlayerCameraLogic CameraLogic { get; set; } = default!;
-
-  public LogicBlock.Binding CameraBinding { get; set; } = default!;
-
-  #endregion State
+  #endregion Dependencies
 
   #region Exports
-
-  [Export] public Vector3 Offset { get; set; } = Vector3.Zero;
 
   [Export(PropertyHint.ResourceType, "PlayerCameraSettings")]
   public PlayerCameraSettings Settings { get; set; } = new();
@@ -105,112 +39,73 @@ public partial class PlayerCamera : Node3D, IPlayerCamera
 
   #region Nodes
 
-  [Node("%Offset")] public INode3D OffsetNode { get; set; } = default!;
-
-  [Node("%GimbalHorizontal")]
-  public INode3D GimbalHorizontalNode { get; set; } = default!;
-
-  [Node("%GimbalVertical")]
-  public INode3D GimbalVerticalNode { get; set; } = default!;
-
   [Node("%Camera3D")] public ICamera3D CameraNode { get; set; } = default!;
 
-  [Node("%SpringArmTarget")]
-  public INode3D SpringArmTarget { get; set; } = default!;
+  [Node("%PhantomCamera3D")]
+  public Node3D PhantomCameraNode { get; set; } = default!;
 
   #endregion Nodes
 
   #region Computed
 
-  public Vector3 SpringArmTargetPosition => SpringArmTarget.Position;
-  public Vector3 CameraLocalPosition => CameraNode.Position;
-  public Vector3 GimbalRotationHorizontal => GimbalHorizontalNode.Rotation;
-  public Vector3 GimbalRotationVertical => GimbalVerticalNode.Rotation;
-
-  public Basis CameraBasis => GimbalHorizontalNode.GlobalTransform.Basis;
-
-  // Camera offset for when strafing, etc, so you can see where you're going.
-  public Vector3 OffsetPosition => OffsetNode.Position;
+  public Basis CameraBasis => new(Vector3.Up, CameraNode.GlobalRotation.Y);
 
   #endregion Computed
 
-  public void Setup()
-  {
-    CameraLogic = new PlayerCameraLogic();
-
-    CameraLogic.Set(this as IPlayerCamera);
-    CameraLogic.Set(Settings);
-    CameraLogic.Set(GameRepo);
-
-    CameraLogic.Save(() => new PlayerCameraLogic.Data
-    {
-      TargetPosition = Vector3.Zero,
-      TargetAngleHorizontal = 0f,
-      TargetAngleVertical = 0f,
-      TargetOffset = Vector3.Zero
-    });
-
-    SetPhysicsProcess(true);
-  }
+  public void Setup() => SetPhysicsProcess(true);
 
   public void OnResolved()
   {
-    CameraBinding = CameraLogic.Bind()
-      .OnOutput((in PlayerCameraLogicState.Output.GimbalRotationChanged output) =>
-      {
-        GimbalHorizontalNode.Rotation = output.GimbalRotationHorizontal;
-        GimbalVerticalNode.Rotation = output.GimbalRotationVertical;
-      })
-      .OnOutput((in PlayerCameraLogicState.Output.GlobalTransformChanged output) =>
-        GlobalTransform = output.GlobalTransform
-      )
-      .OnOutput(
-        (in PlayerCameraLogicState.Output.CameraLocalPositionChanged output) =>
-          CameraNode.Position = output.CameraLocalPosition
-      )
-      .OnOutput((in PlayerCameraLogicState.Output.CameraOffsetChanged output) =>
-        OffsetNode.Position = output.Offset
-      );
-
-    CameraLogic.Start<PlayerCameraLogicState.InputDisabled>();
+    _phantomCamera = new PhantomCamera.PhantomCamera3D(PhantomCameraNode);
+    PublishCameraBasis();
   }
 
-  public void OnPhysicsProcess(double delta)
+  // public void OnPhysicsProcess(double delta)
+  // {
+  //   var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
+  //     "camera_left", "camera_right", JoyAxis.RightX
+  //   );
+
+  //   if (GameRepo.IsMouseCaptured.Value && xMotion is not null)
+  //   {
+  //     ApplyOrbit(new Vector2(xMotion.AxisValue * Settings.JoypadSensitivity * (float)delta, 0f));
+  //   }
+
+  //   var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
+  //     "camera_up", "camera_down", JoyAxis.RightY
+  //   );
+
+  //   if (GameRepo.IsMouseCaptured.Value && yMotion is not null)
+  //   {
+  //     ApplyOrbit(new Vector2(0f, yMotion.AxisValue * Settings.JoypadSensitivity * (float)delta));
+  //   }
+
+  //   PublishCameraBasis();
+  // }
+
+  // public override void _Input(InputEvent @event)
+  // {
+  //   if (GameRepo.IsMouseCaptured.Value && @event is InputEventMouseMotion motion)
+  //   {
+  //     ApplyOrbit(motion.Relative * Settings.MouseSensitivity);
+  //   }
+  // }
+
+  public void UsePlayerCamera()
   {
-    var xMotion = InputUtilities.GetJoyPadActionPressedMotion(
-      "camera_left", "camera_right", JoyAxis.RightX
-    );
-
-    if (xMotion is not null)
-    {
-      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(xMotion));
-    }
-
-    var yMotion = InputUtilities.GetJoyPadActionPressedMotion(
-      "camera_up", "camera_down", JoyAxis.RightY
-    );
-
-    if (yMotion is not null)
-    {
-      CameraLogic.Input(new PlayerCameraLogicState.Input.JoyPadInputOccurred(yMotion));
-    }
-
-    CameraLogic.Input(new PlayerCameraLogicState.Input.PhysicsTicked(delta));
+    _phantomCamera.Priority = 10;
+    PublishCameraBasis();
   }
 
-  public override void _Input(InputEvent @event)
-  {
-    if (@event is InputEventMouseMotion motion)
-    {
-      CameraLogic.Input(new PlayerCameraLogicState.Input.MouseInputOccurred(motion));
-    }
-  }
+  // private void ApplyOrbit(Vector2 motion)
+  // {
+  //   var rotation = PhantomCamera.PhantomCamera3DExtensions
+  //     .GetThirdPersonRotationDegrees(_phantomCamera);
+  //   rotation.X = Mathf.Clamp(rotation.X - motion.Y, Settings.VerticalMin, Settings.VerticalMax);
+  //   rotation.Y -= motion.X;
+  //   PhantomCamera.PhantomCamera3DExtensions
+  //     .SetThirdPersonRotationDegrees(_phantomCamera, rotation);
+  // }
 
-  public void UsePlayerCamera() => CameraNode.MakeCurrent();
-
-  public void OnExitTree()
-  {
-    CameraLogic.Stop();
-    CameraBinding.Dispose();
-  }
+  private void PublishCameraBasis() => GameRepo.SetCameraBasis(CameraBasis);
 }

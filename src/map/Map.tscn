@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://rradokosbgs7" path="res://src/counters/container_counter/CheeseContainerCounter.tscn" id="14_dbqu2"]
 [ext_resource type="Resource" uid="uid://bpneqi4luyo6y" path="res://src/cutting_recipes/TomatoToSlices.tres" id="15_t2vkt"]
 [ext_resource type="PackedScene" uid="uid://bdpjear8fpjjd" path="res://src/counters/trash_counter/TrashCounter.tscn" id="19_t2vkt"]
+[ext_resource type="PackedScene" uid="uid://6h1ohkefi0cf" path="res://src/counters/container_counter/CabbageContainerCounter.tscn" id="20_httk4"]
+[ext_resource type="PackedScene" uid="uid://cq4g8ac4ugf5y" path="res://src/counters/container_counter/BreadContainerCounter.tscn" id="21_ro62w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hi63v"]
 shader = ExtResource("1_ne2vg")
@@ -65,7 +67,7 @@ shader_parameter/star_scintillation = 0.75
 shader_parameter/star_scintillation_speed = 0.01
 shader_parameter/noise_tex = ExtResource("5_dbqu2")
 shader_parameter/clouds_night_color = Color(0.090196, 0.094118, 0.129412, 1)
-shader_parameter/cirrus_visible = true
+shader_parameter/cirrus_visible = false
 shader_parameter/cirrus_intensity = 2.0
 shader_parameter/cirrus_coverage = 0.5
 shader_parameter/cirrus_thickness = 1.7
@@ -73,10 +75,10 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.0019091893, 0.0019091893)
-shader_parameter/cirrus_position2 = Vector2(0.0019091893, 0.0019091893)
+shader_parameter/cirrus_position1 = Vector2(0.0030169862, 0.0030169862)
+shader_parameter/cirrus_position2 = Vector2(0.0030169862, 0.0030169862)
 shader_parameter/cirrus_texture = ExtResource("2_abpbr")
-shader_parameter/cumulus_visible = true
+shader_parameter/cumulus_visible = false
 shader_parameter/cumulus_intensity = 0.6
 shader_parameter/cumulus_coverage = 0.55
 shader_parameter/cumulus_thickness = 0.0243
@@ -84,7 +86,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.009545942, 0.009545942)
+shader_parameter/cumulus_position = Vector2(0.015084959, 0.015084959)
 shader_parameter/cumulus_texture = ExtResource("3_caf7v")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -115,6 +117,8 @@ tonemap_white = 6.0
 environment = SubResource("Environment_ro62w")
 camera_attributes = SubResource("CameraAttributesPractical_q7oan")
 script = ExtResource("8_1de7e")
+clouds_enabled = false
+fog_enabled = false
 editor_time_enabled = false
 game_time_enabled = false
 current_time = 14.0
@@ -136,7 +140,10 @@ sun_azimuth = -3.8337054
 sun_altitude = -0.8728158
 moon_azimuth = -3.4053538
 moon_altitude = -0.73163897
+fog_visible = false
 wind_direction = 2.35619451204804
+cirrus_visible = false
+cumulus_visible = false
 
 [node name="TimeOfDay" type="Node" parent="Sky3D" unique_id=474246209]
 script = ExtResource("10_t2vkt")
@@ -154,19 +161,93 @@ current_time = 14.0
 [node name="Counters" type="Node3D" parent="World" unique_id=1682940617]
 
 [node name="CuttingCounter" parent="World/Counters" unique_id=532112847 instance=ExtResource("12_xcm54")]
-transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1, 0, 0)
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1.34, 0, -3)
+KitchenObjectToSlices = Array[Object]([ExtResource("13_pvu0e"), ExtResource("14_5suoo"), ExtResource("15_t2vkt")])
+
+[node name="CuttingCounter2" parent="World/Counters" unique_id=1514540037 instance=ExtResource("12_xcm54")]
+transform = Transform3D(-1, 0, -2.6226832e-07, 0, 1, 0, 2.6226832e-07, 0, -1, 2.2462986, 0, 2.4136684)
 KitchenObjectToSlices = Array[Object]([ExtResource("13_pvu0e"), ExtResource("14_5suoo"), ExtResource("15_t2vkt")])
 
 [node name="ClearCounter" parent="World/Counters" unique_id=1182774818 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44232035, 0, -3)
+
+[node name="ClearCounter2" parent="World/Counters" unique_id=337145138 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1549315, 0, -3)
+
+[node name="ClearCounter4" parent="World/Counters" unique_id=830920265 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.060501, 0, -3)
+
+[node name="ClearCounter5" parent="World/Counters" unique_id=758982322 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0698547, 0, -2.1136012)
+
+[node name="ClearCounter6" parent="World/Counters" unique_id=534600341 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0698547, 0, -1.215129)
+
+[node name="ClearCounter7" parent="World/Counters" unique_id=1081846489 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.068874, 0, -0.31703717)
+
+[node name="ClearCounter8" parent="World/Counters" unique_id=933387226 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.060501, 0, 1.4710081)
+
+[node name="ClearCounter9" parent="World/Counters" unique_id=1228775492 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.060501, 0, 2.3775861)
+
+[node name="ClearCounter10" parent="World/Counters" unique_id=847889901 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.1551697, 0, 2.4136684)
+
+[node name="ClearCounter11" parent="World/Counters" unique_id=964085293 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.3374274, 0, 2.4136684)
+
+[node name="ClearCounter12" parent="World/Counters" unique_id=341674494 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.43235326, 0, 2.4136684)
+
+[node name="ClearCounter13" parent="World/Counters" unique_id=1446287977 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.2904627, 0, 2.4136684)
+
+[node name="ClearCounter14" parent="World/Counters" unique_id=1636322331 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -3.1978276, 0, 2.4136684)
+
+[node name="ClearCounter15" parent="World/Counters" unique_id=1217889490 instance=ExtResource("12_caf7v")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4.107273, 0, 2.4136684)
+
+[node name="ClearCounter16" parent="World/Counters" unique_id=1489058526 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.112219, 0, 1.5119404)
+
+[node name="ClearCounter17" parent="World/Counters" unique_id=1592521181 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.112219, 0, 0.6083473)
+
+[node name="ClearCounter18" parent="World/Counters" unique_id=1298197297 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.112219, 0, -0.30729666)
+
+[node name="ClearCounter19" parent="World/Counters" unique_id=1999110272 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.112219, 0, -1.1988388)
+
+[node name="ClearCounter20" parent="World/Counters" unique_id=576560825 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.112219, 0, -2.0903811)
+
+[node name="ClearCounter21" parent="World/Counters" unique_id=804412471 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -4.109826, 0, -2.990429)
 
 [node name="TomatoCounter" parent="World/Counters" unique_id=213976403 instance=ExtResource("13_container")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0, -3)
+
+[node name="TomatoCounter2" parent="World/Counters" unique_id=812667382 instance=ExtResource("13_container")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.47651792, 0, 2.4136684)
 
 [node name="ClearCounter3" parent="World/Counters" unique_id=1844286322 instance=ExtResource("12_caf7v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3698778, 0, -3)
 
-[node name="CheeseCounter" parent="World/Counters" unique_id=812667382 instance=ExtResource("14_dbqu2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+[node name="ClearCounter22" parent="World/Counters" unique_id=688693654 instance=ExtResource("12_caf7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2818894, 0, -3)
+
+[node name="CheeseCounter" parent="World/Counters" unique_id=1259799459 instance=ExtResource("14_dbqu2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46364832, 0, -3)
 
 [node name="TrashCounter" parent="World/Counters" unique_id=622850441 instance=ExtResource("19_t2vkt")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2, 0, 0)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4.013188, 0, 0.57463926)
+
+[node name="CabbageCounter" parent="World/Counters" unique_id=745168786 instance=ExtResource("20_httk4")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.385389, 0, 2.4136684)
+
+[node name="BreadCounter" parent="World/Counters" unique_id=1442462628 instance=ExtResource("21_ro62w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1975331, 0, -3.0047855)
